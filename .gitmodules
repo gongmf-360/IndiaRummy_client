@@ -1,0 +1,160 @@
+[submodule "assets/framework"]
+	path = assets/framework
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LS_Framework.git
+	branch = develop
+[submodule "assets/_FWExpand"]
+	path = assets/_FWExpand
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/_FWExpand.git
+[submodule "assets/resources/games/PokerBase"]
+	path = assets/resources/games/PokerBase
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMPOKER_PokerBase.git
+[submodule "assets/resources/games/Domino"]
+	path = assets/resources/games/Domino
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMPOKER_Domino.git
+[submodule "assets/resources/games/Nudo"]
+	path = assets/resources/games/Nudo
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMPOKER_Nudo.git
+[submodule "assets/resources/games/Uno"]
+	path = assets/resources/games/Uno
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMPOKER_Uno.git
+[submodule "assets/resources/slots_common"]
+	path = assets/resources/slots_common
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/Poker_Slot_Common.git
+[submodule "assets/resources/games/Archer"]
+	path = assets/resources/games/Archer
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_Archer.git
+[submodule "assets/resources/games/Alibaba"]
+	path = assets/resources/games/Alibaba
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_Alibaba.git
+[submodule "assets/resources/games/Xerxes"]
+	path = assets/resources/games/Xerxes
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_Xerxes.git
+[submodule "assets/resources/games/Skygarden"]
+	path = assets/resources/games/Skygarden
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_Skygarden.git
+[submodule "assets/resources/games/Sinbad"]
+	path = assets/resources/games/Sinbad
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_Sinbad.git
+[submodule "assets/resources/games/G_Cleopatra"]
+	path = assets/resources/games/G_Cleopatra
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_GorgeousCleopatra_Change.git
+[submodule "assets/resources/games/Sphinx"]
+	path = assets/resources/games/Sphinx
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_Sphinx.git
+[submodule "assets/resources/games/LampOfAladdin"]
+	path = assets/resources/games/LampOfAladdin
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_LampOfAladdin.git
+[submodule "assets/resources/games/TheLegendOfDragon"]
+	path = assets/resources/games/TheLegendOfDragon
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_Dragon.git
+[submodule "assets/resources/games/RegalTiger"]
+	path = assets/resources/games/RegalTiger
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_Tiger.git
+[submodule "assets/resources/games/lhdz"]
+	path = assets/resources/games/lhdz
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_DragonVsTiger.git
+[submodule "assets/resources/Table_Common"]
+	path = assets/resources/Table_Common
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/TableGame_Common.git
+[submodule "assets/resources/games/Roulette36"]
+	path = assets/resources/games/Roulette36
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Roulette36.git
+[submodule "assets/resources/games/BlackJack21"]
+	path = assets/resources/games/BlackJack21
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMSLOTS_GAME_YD_BlackJack21.git
+[submodule "assets/resources/games/SevenUpDown"]
+	path = assets/resources/games/SevenUpDown
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_7UPDown.git
+[submodule "assets/resources/games/Carsh"]
+	path = assets/resources/games/Carsh
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Crash.git
+[submodule "assets/resources/games/Baccarat"]
+	path = assets/resources/games/Baccarat
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_BACCARAT.git
+[submodule "assets/resources/games/AndarBahar"]
+	path = assets/resources/games/AndarBahar
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_AndarBahar.git
+[submodule "assets/resources/games/WingoLottery"]
+	path = assets/resources/games/WingoLottery
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Wingolottery.git
+[submodule "assets/resources/games/Fortunewheel"]
+	path = assets/resources/games/Fortunewheel
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Fortunewheel.git
+[submodule "assets/resources/games/Jhandimunda"]
+	path = assets/resources/games/Jhandimunda
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Jhandimunda.git
+[submodule "assets/resources/games/Rummy"]
+	path = assets/resources/games/Rummy
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Rummy.git
+[submodule "assets/resources/games/HorseRace"]
+	path = assets/resources/games/HorseRace
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_HorseRace.git
+[submodule "assets/resources/games/TeenPatti"]
+	path = assets/resources/games/TeenPatti
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMPOKER_Teenpatti.git
+[submodule "assets/resources/games/Delphi"]
+	path = assets/resources/games/Delphi
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/LMPOKER_Taxes.git
+[submodule "assets/resources/games/AladingWheel"]
+	path = assets/resources/games/AladingWheel
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_AladingWheel.git
+[submodule "assets/resources/games/PowerOfTheKraken"]
+	path = assets/resources/games/PowerOfTheKraken
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/CashHero_PowerOfTheKraken.git
+[submodule "assets/resources/games/hwfish918"]
+	path = assets/resources/games/hwfish918
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_HWFish918.git
+[submodule "assets/resources/Fish_Common"]
+	path = assets/resources/Fish_Common
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/Fish_Common.git
+[submodule "assets/resources/games/CricketX"]
+	path = assets/resources/games/CricketX
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_CRICKETX.git
+[submodule "assets/resources/games/Aviatrix"]
+	path = assets/resources/games/Aviatrix
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Aviatrix.git
+[submodule "assets/resources/games/CrashX"]
+	path = assets/resources/games/CrashX
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_CrashX.git
+[submodule "assets/resources/games/Aviator"]
+	path = assets/resources/games/Aviator
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Aviator.git
+[submodule "assets/resources/games/Zeppelin"]
+	path = assets/resources/games/Zeppelin
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Zeppelin.git
+[submodule "assets/resources/games/JetX"]
+	path = assets/resources/games/JetX
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_JETX.git
+[submodule "assets/resources/games/Dice"]
+	path = assets/resources/games/Dice
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Dice.git
+[submodule "assets/resources/games/Limbo"]
+	path = assets/resources/games/Limbo
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Limbo.git
+[submodule "assets/resources/games/Coins"]
+	path = assets/resources/games/Coins
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Coins.git
+[submodule "assets/resources/games/Plinko"]
+	path = assets/resources/games/Plinko
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Plinko.git
+[submodule "assets/resources/games/Hilo"]
+	path = assets/resources/games/Hilo
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Hilo.git
+[submodule "assets/resources/games/Mines"]
+	path = assets/resources/games/Mines
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Mines.git
+[submodule "assets/resources/games/Keno"]
+	path = assets/resources/games/Keno
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Keno.git
+[submodule "assets/resources/games/Tower"]
+	path = assets/resources/games/Tower
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Tower.git
+[submodule "assets/resources/games/Triple"]
+	path = assets/resources/games/Triple
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Triple.git
+[submodule "assets/resources/games/Crypto"]
+	path = assets/resources/games/Crypto
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_Crypto.git
+[submodule "assets/resources/games/DoubleRoll"]
+	path = assets/resources/games/DoubleRoll
+	url = ssh://git@git.jiuyi.com:22222/CasinoClient/YD_Table_DoubleRoll.git

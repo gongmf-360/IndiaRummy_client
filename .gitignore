@@ -1,0 +1,13 @@
+/library/
+/local/
+/temp/
+/.vscode/
+/build/
+/build_to_test/
+/hotupdate/
+/packages/
+.DS_Store
+/.idea/
+/*local
+/assets/__temp
+/assets/__temp.meta
