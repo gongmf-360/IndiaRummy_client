@@ -3,12 +3,12 @@
 */
 
 let ServerList = {
-    1: "8.218.158.180:9951",            // slot
-    2: "8.218.158.180:9951",            // machen
-    3: "8.218.158.180:9951",            // liyi
-    4: "8.218.158.180:9951",
-    5: "8.218.158.180:9951",            // test
-    6: "8.218.158.180:9951",            // haoran
+    1: "43.128.206.225:9951",            // slot
+    2: "43.128.206.225:9951",            // machen
+    3: "43.128.206.225:9951",            // liyi
+    4: "43.128.206.225:9951",
+    5: "43.128.206.225:9951",            // test
+    6: "43.128.206.225:9951",            // haoran
 };
 
 var GlobalVar = cc.Class({
@@ -22,7 +22,7 @@ var GlobalVar = cc.Class({
         publishMode: false,  //发布的时候需要改成true,启用子包
         openUpdate: false,
         openAutoLogin: true, //是否开启自动登陆
-        
+
         //非常用的配置
         isReview: false,
         isAndroidReview: false,
@@ -40,9 +40,9 @@ var GlobalVar = cc.Class({
         // tAccountServer:"tlogin.poly99online.com", //测试账号的服务器
         // loginStateUrl:"https://state.poly99online.com/",//登录状态检测地址
 
-        apiUrl:"https://inter.yonogames.com",
+        apiUrl: "http://inter.yonogames.com",
         //提审
-        haoUrl:"https://inter.yonogames.com/hao.html",
+        haoUrl: "https://inter.yonogames.com/hao.html",
         fackbookLink: "https://www.facebook.com/cashheroslots/",     //fackbook链接  rummyslots/cashheroslots/...
         androidApi: "http://47.99.169.162:6180/",
         //提审

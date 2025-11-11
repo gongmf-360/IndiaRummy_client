@@ -75,7 +75,7 @@ cc.Class({
         let self = this
         let gameId = this._itemData.id
         //定制项目直接进入游戏，不用分档押注了
-        let bEnterDir = true
+        let bEnterDir = true 
         if(bEnterDir){
             cc.vv.GameManager.EnterGame(gameId,null)
             return

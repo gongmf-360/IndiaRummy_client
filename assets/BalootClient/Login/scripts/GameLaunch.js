@@ -86,7 +86,7 @@ cc.Class({
         //launch 进度条的最大值
         this._launProMax = Math.random(0, 1)
         Global.resVersion = Global.getLocal('c_resv', '1.0.0.0')
-        AppLog.ShowScreen('resvision：'+Global.resVersion)
+        AppLog.ShowScreen('resvision：' + Global.resVersion)
         cc.vv = {};
         // 全局定时器
         let timer = require('TimerMgr');
@@ -125,7 +125,7 @@ cc.Class({
             cc.vv.NetManager.send(req, true);
         }
 
-        
+
         // 支付管理
         let payMgr = require('PayMgrEx');
         payMgr.init();
@@ -159,11 +159,11 @@ cc.Class({
         // 加载新的打点配置
         require('ReportConfig');
 
-        
+
 
         if (cc.sys.isNative) {
-            
-            
+
+
             let packageName = cc.vv.PlatformApiMgr.getPackageName();
             this._packName = packageName
 
@@ -171,16 +171,16 @@ cc.Class({
             if (packageName) {
 
                 packageName = packageName.toLowerCase();
-                if(((Global.appId == Global.APPID.YonoGames) && (packageName == "com.yono.games.free" || packageName == "com.jrwork.game.org" || packageName == "com.yonobet.game.org"
-                || packageName == "com.yooffice.pro.game" || packageName == "com.perez.joy.game"))
-                || ((Global.appId == Global.APPID.RummyVIP) && (packageName == "com.game.rummyvip.free" ))
-                ){
+                if (((Global.appId == Global.APPID.YonoGames) && (packageName == "com.yono.games.free" || packageName == "com.jrwork.game.org" || packageName == "com.yonobet.game.org"
+                    || packageName == "com.yooffice.pro.game" || packageName == "com.perez.joy.game"))
+                    || ((Global.appId == Global.APPID.RummyVIP) && (packageName == "com.game.rummyvip.free"))
+                ) {
                     //right
                 }
-                else if(packageName == "com.yono.games.free.test"){
+                else if (packageName == "com.yono.games.free.test") {
                     Global.testPack = true
                 }
-                else{
+                else {
                     //inavaild boundid
                     cc.game.end()
                 }
@@ -215,7 +215,7 @@ cc.Class({
             }
         }
 
-        
+
 
         // if (Global.isDurakApp()) {
         //     cc.vv.i18nManager.setLanguage(cc.vv.i18nLangEnum.EN)
@@ -324,7 +324,7 @@ cc.Class({
 
             if (cc.sys.isNative && !this._isClonerAPP()) {
                 StatisticsMgr.httpReport(StatisticsMgr.HTTP_REGISTER)
-                cc.vv.PlatformApiMgr.KoSDKTrackEvent('af_complete_registration',JSON.stringify({uid:did}))
+                cc.vv.PlatformApiMgr.KoSDKTrackEvent('af_complete_registration', JSON.stringify({ uid: did }))
             }
         }
     },
@@ -381,13 +381,10 @@ cc.Class({
 
     start() {
         AppLog.ShowScreen('launch场景启动')
-
         // if (cc.sys.isNative) {
-            // StatisticsMgr.httpReport(StatisticsMgr.HTTP_LAUNCH)
-            this.generalClientuuid();
-        // }
-        
-
+        // StatisticsMgr.httpReport(StatisticsMgr.HTTP_LAUNCH)
+        this.generalClientuuid(); //生成客户端ID
+        // } 
         this._nIterval = 0
         this.setProgress(0.01)
         var node = cc.find('Canvas');
@@ -483,7 +480,6 @@ cc.Class({
 
     async doEnterPro() {
         var self = this;
-
         self.loadNextScene()
         // let nextStepFunc = () => {
         //     self.loadNextScene()
@@ -535,46 +531,40 @@ cc.Class({
 
     },
 
-    _isClonerAPP:function(){
-        if(Global.isAndroid()){
+    _isClonerAPP: function () {
+        if (Global.isAndroid()) {
             var localAppVersion = parseInt(cc.vv.PlatformApiMgr.getAppVersion().split('.').join(''));
-            if(localAppVersion > 120){
-                if(cc.vv.PlatformApiMgr.IsCloner()){
+            if (localAppVersion > 120) {
+                if (cc.vv.PlatformApiMgr.IsCloner()) {
                     return true
                 }
             }
-            
+
         }
     },
 
     loadNextScene: function () {
-
-        if(this._isClonerAPP()){
-            if(cc.vv.AlertView){
-                let str = cc.js.formatStr("%s can not run at this mode!",cc.vv.UserConfig.getAppName())
-                cc.vv.AlertView.showTips(str,()=>{
+        if (this._isClonerAPP()) {
+            if (cc.vv.AlertView) {
+                let str = cc.js.formatStr("%s can not run at this mode!", cc.vv.UserConfig.getAppName())
+                cc.vv.AlertView.showTips(str, () => {
                     cc.game.end()
                 })
             }
-
-            return
-            
+            return;
         }
-
         if (!cc.vv.NetCacheMgr) {
             let scp = require("PH_NetCacheMgr")
             cc.vv.NetCacheMgr = new scp()
             cc.vv.NetCacheMgr.init()
         }
 
-        if(!cc.vv.ChipPool){
+        if (!cc.vv.ChipPool) {
             cc.vv.ChipPool = require("Table_Chips_Nodepool")
             cc.vv.ChipPool.init()
-            
+
         }
-
-        //淡出动画
-
+        //淡出动画 
         if (Global.isNative() && Global.openUpdate) { //android、ios需要
 
             if (!this.isHotupdateRestart()) {
@@ -606,13 +596,15 @@ cc.Class({
             }
 
         }
-        else { //H5不需要热更新
+        else { //H5不需要热更新 
             AppLog.ShowScreen('H5,直接登陆')
-            // 便于测试代码
-            let langStr = this.getQueryVariable("lang");
+            //  获取浏览器参数
+            let langStr = this.getQueryVariable("lang") || this.getQueryVariable("language");
+            console.log("langStr:::::", langStr);
             if (langStr && langStr == "close") { Global.noI18n = true; }
             let testStr = this.getQueryVariable("test");
-            let auto = this.getQueryVariable("auto");
+            let auto = this.getQueryVariable("auto"); 
+            let gameId = 693;  //游戏ID  
             if (testStr) {
                 var localNickname = "Guest" + testStr;
                 Global.saveLocal('nick_name', localNickname);
@@ -625,8 +617,10 @@ cc.Class({
                     guestTokenMap[localNickname] = { token: token };
                     Global.saveLocal(Global.SAVE_PLAYER_TOKEN, JSON.stringify(guestTokenMap));
                 }
-                Global.saveLocal('client_uuid', `88888888-${testStr}`);
-                cc.vv.GameManager.reqLogin(localNickname, localNickname, Global.LoginType.Guest, '', Global.LoginExData.loginAction, token)
+                Global.saveLocal('client_uuid', `88888888-${testStr}`); 
+                cc.log("全局信息::::::", Global.GlobalVar);
+                cc.vv.GameManager.reqLogin(localNickname, localNickname, Global.LoginType.Guest, '', Global.LoginExData.loginAction, token);
+                console.log("进入场景：：：："); 
             } else if (auto && auto == "false") {
                 cc.vv.SceneMgr.enterScene(Global.SCENE_NAME.LOGIN, this.onLoadLoginSceneFinish.bind(this));
             } else {
@@ -638,9 +632,12 @@ cc.Class({
                 // else {
                 //     cc.vv.GameManager.autoTravellerLogin()
                 // }
+                cc.log("直接登录");
                 cc.vv.GameManager.nativeSkipHotupdate()
-            }
+            } 
         }
+        // 判断游戏是直接进入还是有RoomList 
+        this.getGameIdAndGoRoom(); 
     },
     onLoadHotupdateSceneFinish: function () {
         cc.log("onLoadHotupdateSceneFinish")
@@ -648,6 +645,12 @@ cc.Class({
     onLoadLoginSceneFinish: function () {
         cc.log("onLoadLoginSceneFinish")
     },
+    // 获取游戏ID并进入房间
+    getGameIdAndGoRoom(){
+        let gameId=this.getQueryVariable("gameId");
+        console.log('获取游戏ID并进入房间:::',gameId);
+        
+    },  
     // 开启热更新检测
     startHotupdate: function () {
         // 拿到当前场景内的热更新组件

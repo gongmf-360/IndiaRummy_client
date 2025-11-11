@@ -67,11 +67,11 @@ cc.Class({
         eventListener.registerEvent("HALL_OPEN_LEAGUE", this.HALL_OPEN_LEAGUE, this)
         // 接受事件 进入游戏前
         eventListener.registerEvent("HALL_TO_GAME", this.HALL_TO_GAME, this)
-        eventListener.registerEvent("OpenCharge",this.OpenCharge,this)
-        eventListener.registerEvent("GAME_LIST_UPDATE",this.GAME_LIST_UPDATE,this)
+        eventListener.registerEvent("OpenCharge", this.OpenCharge, this)
+        eventListener.registerEvent("GAME_LIST_UPDATE", this.GAME_LIST_UPDATE, this)
         // 金币不足弹出
         eventListener.registerEvent(EventId.NOT_ENOUGH_COINS, this.NOT_ENOUGH_COINS, this)
-        Global.registerEvent("EVENT_ADD_REFFER",this.onAddRefferTip,this)
+        Global.registerEvent("EVENT_ADD_REFFER", this.onAddRefferTip, this)
         // 判断是否从游戏内出来
         this.backGameId = Global.getLocal("SAVE_FROM_SUBGAME_ID", 0);
         // 判断从游戏内回来的游戏类型
@@ -84,8 +84,8 @@ cc.Class({
             Global.saveLocal("SAVE_FROM_SUBGAME_ROOM_TYPE", "0");
             Global.saveLocal("SUBGAME_GOLD_SHORTAGE", "0");
         }, 0);
-        //同步金币请求
-        cc.vv.NetManager.send({ c: MsgId.SYNC_COIN }, true);
+        //同步金币请求 设置金币
+        cc.vv.NetManager.send({ c: MsgId.SYNC_COIN }, true); 
         // 客服连接
         // this.whatsapp.node.on("click", () => {
         //     cc.vv.PlatformApiMgr.openURL(cc.vv.UserManager.whatapplink);
@@ -126,8 +126,8 @@ cc.Class({
             let roomBtnNode = null;
             // if (info.ord == 1) {
             //     roomBtnNode = cc.instantiate(this.roomBtnBigPrefab);
-            // } else {
-                roomBtnNode = cc.instantiate(this.roomBtnPrefab);
+            // } else { 
+            roomBtnNode = cc.instantiate(this.roomBtnPrefab);
 
             // }
             roomBtnNode.parent = this.gameBtnContent;
@@ -135,18 +135,19 @@ cc.Class({
             roomTypeCpt.gameid = info.id;
             roomTypeCpt.updateView();
             nGame += 1
-        }
-
-        //slot是否开放
+            console.log("初始化游戏列表：：：", info);
+        } 
+        //slot是否开放 老虎机
         let nSlots = cc.vv.UserManager.slotsList.length || 0
-        let btnSlots = cc.find("PageContent2/PageHall/Games/view/content/content/btn_hall_game_slots",this.node)
-        if(btnSlots){
+        console.log("nSlots:::::",nSlots);
+        let btnSlots = cc.find("PageContent2/PageHall/Games/view/content/content/btn_hall_game_slots", this.node)
+        if (btnSlots) {
             btnSlots.active = nSlots > 0
         }
-        
+
 
         //是否需要添加一个comesoon
-        if(nGame%2 == 0){
+        if (nGame % 2 == 0) {
             let roomBtnNode = cc.instantiate(this.roomBtnPrefab);
             roomBtnNode.parent = this.gameBtnContent;
             let roomTypeCpt = roomBtnNode.getComponent("RoomTypeBtn");
@@ -188,16 +189,16 @@ cc.Class({
                     type = 0;
                 }
                 console.log(this.backGameId, type);
-                for (let i = 0; i < this.gameBtnContent.childrenCount; i++){
+                for (let i = 0; i < this.gameBtnContent.childrenCount; i++) {
                     let node = this.gameBtnContent.children[i];
                     let roomTypeBtn = node.getComponent("RoomTypeBtn");
-                    if(roomTypeBtn){
-                        if(roomTypeBtn.gameid == this.backGameId){
+                    if (roomTypeBtn) {
+                        if (roomTypeBtn.gameid == this.backGameId) {
                             roomTypeBtn.showExitState(true);
-                            this.scheduleOnce(()=>{
-                                let offPos = cc.vv.UserManager.getHallOffset() || this.gamesScrollview.node.convertToNodeSpaceAR(node.convertToWorldSpaceAR(cc.v2(0,node.height)))
+                            this.scheduleOnce(() => {
+                                let offPos = cc.vv.UserManager.getHallOffset() || this.gamesScrollview.node.convertToNodeSpaceAR(node.convertToWorldSpaceAR(cc.v2(0, node.height)))
                                 this.gamesScrollview.scrollToOffset(cc.v2(0, Math.abs(offPos.y)))
-                            },0)
+                            }, 0)
                         } else {
                             roomTypeBtn.showExitState(false);
                         }
@@ -238,7 +239,7 @@ cc.Class({
             // }
             cc.vv.AudioManager.playBgm("BalootClient/BaseRes/", name, true, null, null, true)
 
-            
+
             StatisticsMgr.httpAll()
         }, 1)
         // 开始处理广播
@@ -263,7 +264,7 @@ cc.Class({
         // 提示新APP弹窗
         if (!!cc.vv.UserManager.newapp) {
             //是否隔天
-            if(Global.needPopDayTips('newappurl')){
+            if (Global.needPopDayTips('newappurl')) {
                 cc.vv.PopupManager.addPopup("BalootClient/NewAppHint/NewAppHint", {
                     weight: 997,
                     isWait: true,
@@ -274,10 +275,10 @@ cc.Class({
                     }
                 })
             }
-            
+
         }
         // 新手1000美金礼包
-        if (cc.vv.UserManager.charmpack ) {
+        if (cc.vv.UserManager.charmpack) {
             cc.vv.PopupManager.addPopup("BalootClient/NewComerGift/PopupNewComerGift", {
                 weight: 996,
                 isWait: true,
@@ -293,10 +294,10 @@ cc.Class({
         // rewards today
         let todayrewards = cc.vv.UserManager.todayrewards;
         let win = 0;
-        for (let key in todayrewards){
+        for (let key in todayrewards) {
             win += todayrewards[key]
         }
-        if(win > 0 && !cc.vv.UserManager.hasPopRewardToday){
+        if (win > 0 && !cc.vv.UserManager.hasPopRewardToday) {
             cc.vv.PopupManager.addPopup("YD_Pro/prefab/yd_reward_today", {
                 weight: 993,
                 isWait: true,/* scaleIn: true,*/
@@ -321,14 +322,14 @@ cc.Class({
 
         //签到弹窗
         if (cc.vv.UserManager.vipsign == 0) { //需要签到
-            cc.vv.PopupManager.addPopup("BalootClient/PopupSign/PopupSign", {weight: 995,isWait: true, scaleIn: true });
+            cc.vv.PopupManager.addPopup("BalootClient/PopupSign/PopupSign", { weight: 995, isWait: true, scaleIn: true });
             cc.vv.UserManager.vipsign = 1;
         }
 
         //luckyspin
         // cc.vv.UserManager.popLuckySpin = 1
-        if(cc.vv.UserManager.popLuckySpin == 1){
-            cc.vv.PopupManager.addPopup("BalootClient/PopLuckySpin/PopLuckySpin", {weight: 994,isWait: true, scaleIn: true });
+        if (cc.vv.UserManager.popLuckySpin == 1) {
+            cc.vv.PopupManager.addPopup("BalootClient/PopLuckySpin/PopLuckySpin", { weight: 994, isWait: true, scaleIn: true });
         }
 
         // // 提醒好评弹窗
@@ -338,7 +339,7 @@ cc.Class({
         // }
         //新增代理
         let addNum = cc.vv.UserManager.getAddInvite()
-        if(addNum){
+        if (addNum) {
             cc.vv.PopupManager.addPopup("YD_Pro/Refer/ReferAddTips", {
                 isWait: true,
                 scaleIn: true,
@@ -460,7 +461,7 @@ cc.Class({
                     cc.vv.FloatTip.show(___("密码错误"));
                 }
             } else {
-                if(msg.spcode == 804){
+                if (msg.spcode == 804) {
                     cc.vv.AlertView.show(___("金币不足"), () => {
                         cc.vv.EventManager.emit("HALL_OPEN_SHOP", { open: 1 });
                     }, () => {
@@ -471,7 +472,7 @@ cc.Class({
                 // cc.vv.FloatTip.show(___("进入房间失败"));
             }
         }
-        
+
     },
     // 匹配房间结果 
     GAME_ENTER_MATCH(msg) {
@@ -483,7 +484,7 @@ cc.Class({
             }, false, () => { }, ___("提示"), ___("取消"), ___("Deposit"))
         }
 
-        if(msg.code == 200){
+        if (msg.code == 200) {
             let off = this.gamesScrollview.getScrollOffset();
             cc.vv.UserManager.setHallOffset(off);
         }
@@ -537,10 +538,10 @@ cc.Class({
     // 接受事件 服务器已经进入游戏
     HALL_TO_GAME() {
         let bInHall = cc.vv.SceneMgr.isInHallScene()
-        if(bInHall){
-            cc.vv.PopupManager.addPopup("BalootClient/BaseRes/prefabs/ToGameLoading", { noCloseHit: true, opacityIn: true ,parent:cc.find("Canvas")});
+        if (bInHall) {
+            cc.vv.PopupManager.addPopup("BalootClient/BaseRes/prefabs/ToGameLoading", { noCloseHit: true, opacityIn: true, parent: cc.find("Canvas") });
         }
-        
+
     },
 
     //检查是不是外部链接动作
@@ -552,8 +553,8 @@ cc.Class({
     },
 
     //检查代理绑定关系
-    chekBindCodeAction:function(){
-        if(cc.vv.UserManager.invit_uid){
+    chekBindCodeAction: function () {
+        if (cc.vv.UserManager.invit_uid) {
             //已经绑定了
             return;
         }
@@ -562,7 +563,7 @@ cc.Class({
             let req = { c: MsgId.EVENT_FB_INVITE_BIND_CODE }
             req.code = code
             var localAppVersion = parseInt(cc.vv.PlatformApiMgr.getAppVersion().split('.').join(''));
-            if(localAppVersion>129){
+            if (localAppVersion > 129) {
                 req.cx = cc.vv.PlatformApiMgr.GetChannelExStr()
             }
             cc.vv.NetManager.send(req)
@@ -579,9 +580,9 @@ cc.Class({
         }, false, () => { }, ___("提示"), ___("取消"), ___("Deposit"))
     },
 
-    onAddRefferTip(data){
+    onAddRefferTip(data) {
         let val = data.detail
-        if(val){
+        if (val) {
             cc.vv.PopupManager.addPopup("YD_Pro/Refer/ReferAddTips", {
                 isWait: true,
                 scaleIn: true,
@@ -592,26 +593,26 @@ cc.Class({
         }
     },
 
-    OpenCharge(){
-        let btn_customer = cc.find("safeview/UserinfoBar/coin/btn_add",this.node)
-        if(btn_customer){
+    OpenCharge() {
+        let btn_customer = cc.find("safeview/UserinfoBar/coin/btn_add", this.node)
+        if (btn_customer) {
             btn_customer.emit("click")
         }
     },
 
 
-    update(dt){
-        if(!this._updateIntv) this._updateIntv = 0
+    update(dt) {
+        if (!this._updateIntv) this._updateIntv = 0
         this._updateIntv += dt
-        if(this._updateIntv>1){ //1 去检测一次
+        if (this._updateIntv > 1) { //1 去检测一次
             this._updateIntv = 0
-            if(cc.vv.GameManager){
+            if (cc.vv.GameManager) {
                 cc.vv.GameManager.updateFCMToken()
             }
-           
+
         }
-        
-        
+
+
     },
 
 

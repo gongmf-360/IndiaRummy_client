@@ -609,7 +609,7 @@ cc.Class({
                             req.deviceToken = cc.vv.PlatformApiMgr.getDeviceToken();
                         }
                     }
-
+                    console.log("协议2发送消息",req);
                     cc.vv.NetManager.send(req)
                 })
             }
@@ -1162,10 +1162,10 @@ cc.Class({
             }
             
         },
-
+        // 进入游戏 回调
         onRcvNetEnterGame:function(msg){
-            AppLog.ShowScreen('进入游戏请求返回')
-            
+            console.log("进入游戏：：：：",msg);
+            AppLog.ShowScreen('进入游戏请求返回') 
             let self = this
             let enterCall = function(){
                 self.onRecNetCreateOrJoinRoom(msg)

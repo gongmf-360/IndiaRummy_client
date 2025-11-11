@@ -467,11 +467,11 @@ cc.Class({
         // 主动同步金币
         SYNC_COIN: function (msg) {
             if (msg.code === 200) {
-                cc.vv.UserManager.SetCoin(msg.coin, true)
-                cc.vv.UserManager.setDiamond(msg.diamond, true)
+                cc.vv.UserManager.SetCoin(msg.coin, true) //金币
+                cc.vv.UserManager.setDiamond(msg.diamond, true) //钻石
                 // 额外需要同步一下exp
-                // cc.vv.UserManager.setCurLv(msg.level);
-                cc.vv.UserManager.setCurExp(msg.levelexp);
+                // cc.vv.UserManager.setCurLv(msg.level); 
+                cc.vv.UserManager.setCurExp(msg.levelexp); //同步经验
                 // cc.vv.UserManager.setUpdateExp(msg.levelup);
                 // 发出事件通知
                 Global.dispatchEvent("USER_EXP_CHANGE");
@@ -480,7 +480,8 @@ cc.Class({
 
         // 设置
         SetCoin(val, bRefushHall) {
-            this.coin = Number(val.toFixed(2));
+            // 设置金币数量
+            this.coin = Number(val.toFixed(2)); 
             // this.totalcoin = this.coin + this.cashbonus + this.bankcoin;
             if (bRefushHall) {
                 Global.dispatchEvent(EventId.UPATE_COINS)

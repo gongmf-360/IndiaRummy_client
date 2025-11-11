@@ -46,7 +46,7 @@ cc.Class({
             //App需要重启，可能是强更
             cc.vv.NetManager.registerMsg(MsgId.GAME_NEED_RESTART, this.onRcvNetGameRestarNotice, this);
 
-            //同步玩家信息
+            //同步玩家信息 
             cc.vv.NetManager.registerMsg(MsgId.SYNC_PLAYER_INFO, this.onRcvNetSyncPlayerInfo, this);
             //幸运红包变化
             cc.vv.NetManager.registerMsg(MsgId.REQ_REDPACK, this.onRcvRedPackInfo, this)
@@ -108,6 +108,7 @@ cc.Class({
         loginConfig: null,
         // 登录成功
         async onRcvMsgLoginUserId(msgDic) {
+            Global.gameClickHeaderCoin = false;
             if (msgDic.code === 200) {
                 // 加载固定配置只加载在一次
                 if (!this.loginConfig) {
@@ -115,7 +116,7 @@ cc.Class({
                 }
                 cc.vv.UserManager.initPlayerData(msgDic, this.loginConfig);
                 //登陆成功
-                cc.vv.PlatformApiMgr.KoSDKTrackEvent('af_login',JSON.stringify({uid:msgDic.uid}))
+                cc.vv.PlatformApiMgr.KoSDKTrackEvent('af_login', JSON.stringify({ uid: msgDic.uid }))
                 //断线重连清理引导标志，以防卡死
                 Global.dispatchEvent(EventId.ENTER_LOGIN_SUCCESS, msgDic);
                 let loginType = cc.vv.UserManager.getLoginType()
@@ -185,14 +186,13 @@ cc.Class({
 
                     }
 
-                }
-                else {//进入大厅
+                } else {
+                    //进入大厅
                     if (loginType == Global.LoginType.APILOGIN) {
                         //api调用 登陆成功后 直接进入游戏
                         let nId = cc.vv.UserManager.getApiGameId()
                         this.sendEnterGameReq(nId)
-                    }
-                    else {
+                    } else {
                         if (cc.vv.SceneMgr.CanShowHallPreLoading()) {
                             //在登录界面，预加载下资源
                             cc.vv.SceneMgr.enterScene(Global.SCENE_NAME.HALL_PRELOAD);
@@ -226,14 +226,31 @@ cc.Class({
 
                         }
                     }
-
-
                     //cc.vv.EventManager.emit(EventId.ENTER_LOGIN_SUCCESS); 
                 }
             }
             else {
                 this.goBackLoginScene()
             }
+            // 包网直接进入游戏 
+            // 浏览器参数控制是否进入游戏
+            let gameId = this.getUrlParams("gameId");
+            if (gameId) {
+                Global.gameClickHeaderCoin = true;
+                // 判断游戏是否已下载 
+                setTimeout(() => {
+                    this.sendEnterGameReq(Number(gameId));
+                }, 2000)
+            }
+        },
+        // 判断是否已经下载
+        isDowload() {
+
+        },
+        getUrlParams(key) {
+            let search = window.location.search;
+            let params = new URLSearchParams(search);
+            return params.get(key) || false;
         },
         // 添加好友成功
         SOCIAL_FRIEND_HANDLE_ADD(msg) {
@@ -266,8 +283,6 @@ cc.Class({
             if (msg.rewards && msg.rewards.length > 0) {
             }
         },
-
-
         // 播放按钮音效
         EVENT_BTN_CLICK_SOUNDS(args) {
             cc.vv.AudioManager.playEff("BalootClient/BaseRes/", 'btn_click', true);
@@ -442,14 +457,14 @@ cc.Class({
         _checkJoinRoomSpcode: function (msgDic) {
             let spVal = msgDic.spcode
             if (spVal) {
-                if(spVal == 662){
+                if (spVal == 662) {
                     cc.vv.AlertView.show(___("您的游戏还未结束,是否继续游戏"), () => {
                         cc.vv.NetManager.send({ c: MsgId.GAME_ENTER_MATCH, deskid: msgDic.deskid, gameid: msgDic.gameid }, true);
                     }, () => {
                     });
                 }
-                
-                
+
+
                 return false;
             }
             return true
@@ -473,7 +488,7 @@ cc.Class({
 
                     //加入游戏，是否有vip限制
                     let needVip = cc.vv.UserManager.getSalonVip()
-                    if(needVip > cc.vv.UserManager.svip){
+                    if (needVip > cc.vv.UserManager.svip) {
                         //调往充值
                         let tipsmsg = cc.js.formatStr("Upgrade your VIP level to VIP%s to enjoy the Salon", needVip)
                         cc.vv.AlertView.show(___(tipsmsg), () => {
@@ -490,7 +505,7 @@ cc.Class({
                     let pwd = array[2]
                     let bInnerGame = cc.vv.UserManager.isNoNeedDownGame(gameid)
                     let bNew = cc.vv.SubGameUpdateNode.getComponent('subGameMgr')._isAreadyNew(gameid)
-                    if(cc.sys.isBrowser || bNew || bInnerGame){
+                    if (cc.sys.isBrowser || bNew || bInnerGame) {
                         let req = { c: MsgId.FRIEND_ROOM_JOIN }
                         req.deskid = roomid
                         if (gameid) {
@@ -504,19 +519,19 @@ cc.Class({
                             cc.vv.NetManager.send(req);
                         }
                     }
-                    else{
+                    else {
                         //提示更新
-                        let tips = cc.js.formatStr('You need to download the latest resources of 【%s】 first',cc.vv.UserConfig.getGameName(gameid))
-                        cc.vv.AlertView.show(tips,()=>{
+                        let tips = cc.js.formatStr('You need to download the latest resources of 【%s】 first', cc.vv.UserConfig.getGameName(gameid))
+                        cc.vv.AlertView.show(tips, () => {
                             // this._waitgameId = data.gameid
                             cc.vv.SubGameUpdateNode.emit("check_subgame", gameid);
                             cc.vv.FloatTip.show("start download")
-                        },()=>{
+                        }, () => {
 
                         })
                     }
 
-                    
+
                 }
                 // else {
                 //     //如果不是进入房间，检查是不是绑定邀请码
@@ -532,7 +547,7 @@ cc.Class({
             }
         },
 
-        onRefushFMCToken:function(){
+        onRefushFMCToken: function () {
             this.updateFCMToken()
         },
 
@@ -581,7 +596,7 @@ cc.Class({
                 });
             } else if (positionId == 1) {       // game
                 gameHallCpt.pageTabbar.setPage(2);
-            }  else if (positionId == 2) {       // 好友房
+            } else if (positionId == 2) {       // 好友房
                 gameHallCpt.pageTabbar.setPage(1);
             } else if (positionId == 3) {       // 代理
                 gameHallCpt.pageTabbar.setPage(3);
@@ -638,51 +653,52 @@ cc.Class({
                     }, 0.1)
                 }
             }
-            else if(positionId == 11){ //游戏 - bonus
+            else if (positionId == 11) { //游戏 - bonus
                 gameHallCpt.pageTabbar.setPage(3);
                 // let url = "YD_Pro/prefab/yd_bonus"
                 // cc.vv.PopupManager.addPopup(url, {isWait: true, opacityIn: true })
-            }else if(positionId == 11.1){//游戏 - bonus-返水
+            } else if (positionId == 11.1) {//游戏 - bonus-返水
                 gameHallCpt.pageTabbar.setPage(3);
-                Global.dispatchEvent("Bonus_Tab",1)
+                Global.dispatchEvent("Bonus_Tab", 1)
                 // let url = "YD_Pro/prefab/yd_bonus"
                 // cc.vv.PopupManager.addPopup(url, {isWait: true, opacityIn: true ,onShow:(node)=>{
                 //     node.getComponent("yd_bonus").onClickToggle1()
                 // }})
-            } 
-            else if(positionId == 11.2){//bonus-task
-                gameHallCpt.pageTabbar.setPage(3);
-                Global.dispatchEvent("Bonus_Tab",2)
             }
-            else if(positionId == 11.3){//bonus-login
+            else if (positionId == 11.2) {//bonus-task
                 gameHallCpt.pageTabbar.setPage(3);
-                Global.dispatchEvent("Bonus_Tab",3)
+                Global.dispatchEvent("Bonus_Tab", 2)
             }
-            else if(positionId == 11.4){//bonus-promo
+            else if (positionId == 11.3) {//bonus-login
                 gameHallCpt.pageTabbar.setPage(3);
-                Global.dispatchEvent("Bonus_Tab",4)
+                Global.dispatchEvent("Bonus_Tab", 3)
             }
-            else if(parseInt(positionId) == 12){  // 排行榜-12.1 12.2 12.3
+            else if (positionId == 11.4) {//bonus-promo
+                gameHallCpt.pageTabbar.setPage(3);
+                Global.dispatchEvent("Bonus_Tab", 4)
+            }
+            else if (parseInt(positionId) == 12) {  // 排行榜-12.1 12.2 12.3
                 gameHallCpt.pageTabbar.setPage(2);
-                cc.vv.PopupManager.addPopup("YD_Pro/rank/yd_rank", {opacityIn: true,
+                cc.vv.PopupManager.addPopup("YD_Pro/rank/yd_rank", {
+                    opacityIn: true,
                     onShow: (node) => {
-                        node.getComponent("yd_rank").initPage(positionId*10%12);
+                        node.getComponent("yd_rank").initPage(positionId * 10 % 12);
                     }
                 })
             }
         },
 
-        onRcvRefushDeskInfo:function(msg){
-            if(msg.code == 200){
-                if(cc.vv.gameData){
-                    if(msg.deskFlag == 1){
-                        if(msg.deskInfo){
+        onRcvRefushDeskInfo: function (msg) {
+            if (msg.code == 200) {
+                if (cc.vv.gameData) {
+                    if (msg.deskFlag == 1) {
+                        if (msg.deskInfo) {
                             msg.deskInfo.isReconnect = true;
-                            cc.vv.gameData.init(msg.deskInfo,msg.gameid)
-                        }   
+                            cc.vv.gameData.init(msg.deskInfo, msg.gameid)
+                        }
                     }
-                    
-                    
+
+
                 }
             }
         },
@@ -712,7 +728,7 @@ cc.Class({
                 //     else{
                 //         cc.vv.FloatTip.show("BindCode:" + msg.spcode)
                 //     }
-                    
+
                 //     return
                 // }
 
@@ -723,11 +739,11 @@ cc.Class({
         onPressBackCall: function () {
             //看当前是否有webview
             let webs = cc.director.getScene().getComponentsInChildren(cc.WebView)
-            if(webs && webs.length>0){
+            if (webs && webs.length > 0) {
                 //就不显示，否则会被webview挡住
                 return
             }
-            let tips = cc.js.formatStr("Are you sure you want to exit %s?",cc.vv.UserConfig.getAppName())
+            let tips = cc.js.formatStr("Are you sure you want to exit %s?", cc.vv.UserConfig.getAppName())
             let sureCall = function () {
                 cc.game.end();
             }
@@ -757,14 +773,14 @@ cc.Class({
          * overwirte
          * @returns 
          */
-        getAppPackname(){
-            if(cc.sys.isBrowser){
+        getAppPackname() {
+            if (cc.sys.isBrowser) {
                 return "com.yono.games.free"
             }
-            else{
+            else {
                 return cc.vv.PlatformApiMgr.getPackageName()
             }
-            
+
         }
 
     }

@@ -76,11 +76,11 @@ cc.Class({
     },
 
     onClickPlay(event) {
+        console.log("游戏Item点击项",event);
         cc.vv.EventManager.emit("EVENT_BTN_CLICK_2_SOUNDS");
         let content = cc.find("view/content", this.node)
         let index = content.children.indexOf(event.node)
         if (index >= 0) {
-
             let bInnerGame = cc.vv.UserManager.isNoNeedDownGame(this._gameid)
             let bNew = cc.vv.SubGameUpdateNode.getComponent('subGameMgr')._isAreadyNew(this._gameid)
             if(cc.sys.isBrowser ||  bNew || bInnerGame){
@@ -97,8 +97,7 @@ cc.Class({
                 },()=>{
 
                 })
-            }
-            
+            } 
         }
     },
 
