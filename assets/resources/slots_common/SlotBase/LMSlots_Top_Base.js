@@ -10,28 +10,22 @@ cc.Class({
         _lbl_coin: null, //金币
 
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
+    // LIFE-CYCLE CALLBACKS: 
     onLoad() {
-        // this._super()
-
+        // this._super() 
         this._lbl_coin = cc.find("playerCoins/lbl_coinsNum", this.node)
-
-
         // this._btn_backLobby = cc.find("btn_backLobby", this.node);
         // Global.btnClickEvent(this._btn_backLobby, this.onBtnBackLobbyClicked, this);
         this._btn_purchase = cc.find("btn_purchase", this.node);
         if (Global.gameClickHeaderCoin == false) {
             Global.btnClickEvent(this._btn_purchase, this.onBtnPurchaseClicked, this);
-        } 
+        }
         //购买钻石
-        let buy_diamond = cc.find("btn_diamond", this.node)  
+        let buy_diamond = cc.find("btn_diamond", this.node)
         Global.btnClickEvent(buy_diamond, this.onBtnDiamond, this);
         //菜单按钮
         this._btn_menu = cc.find("btn_menu", this.node);
         Global.btnClickEvent(this._btn_menu, this.onBtnMenuClicked, this);
-
         // //屏蔽上下点击
         Global.registerEvent(cc.vv.gameData._EventId.SLOT_SHOW_HEADFOOTER_MASK, this.OnEventShowMask, this);
         //设置了gamedata模块的金币，此消息刷新显示
@@ -62,14 +56,23 @@ cc.Class({
     //初始化
     Init: function () {
         this.ShowCoin()
-        // this.updateLvExp(true)
-
+        // this.updateLvExp(true) 
         this.showDiamond()
         this.showHeadInfo()
         this.showVip()
-        this.showMetal()
+        this.showMetal() 
+        if (cc.vv.UserManager.getIsTokenLogin()) { 
+            this.hideNode();  
+        }
     },
-
+    // 隐藏节点
+    hideNode() {
+        let _this = this;
+        let nodeArray = [{ key: "head", label: "头部" }, { key: "playervip", label: "VIP" },{key:"btn_diamond",label:"钻石按钮"},{key:"btn_purchase",label:"钻石按钮"}];
+        nodeArray.forEach(item => {
+            cc.find(item.key, _this.node).active = false;
+        }) 
+    },
     showDiamond: function () {
         let lblDiamond = cc.find("playerDiamond/lbl_val", this.node)
         lblDiamond.getComponent(cc.Label).string = Global.FormatNumToComma(cc.vv.UserManager.dcoin)
@@ -83,8 +86,7 @@ cc.Class({
                 node.parent = cc.find("Canvas");
                 node.active = true;
                 let shopcp = node.getComponent("ShopViewMain")
-                shopcp.showTab("0")
-
+                shopcp.showTab("0") 
             }
         })
     },
@@ -188,7 +190,6 @@ cc.Class({
     ShowCoin: function () {
         let nVal = cc.vv.gameData.GetCoin()
         this._lbl_coin.getComponent(cc.Label).string = Global.FormatNumToComma(nVal)
-
         //检查一下是否缺金币
         this.onBetChange()
     },
@@ -225,7 +226,6 @@ cc.Class({
 
     //是否可以退出游戏
     SetBackLobby(bEnable) {
-
         // this._btn_backLobby.getComponent(cc.Button).interactable = bEnable
         let menuScp = cc.find("Canvas").getComponentInChildren("LMSlotMachine_MenuNode")
         if (menuScp) {

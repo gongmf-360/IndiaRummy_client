@@ -375,10 +375,8 @@ cc.Class({
     //     };
     //     cc.loader.loadRes("BalootClient/BaseRes/prefabs/poly99_AlterView", cc.Prefab, (err, prefab) => {
     //         func(err, prefab);
-    //     });
-
-    // },
-
+    //     }); 
+    // }, 
     start() {
         AppLog.ShowScreen('launch场景启动')
         // if (cc.sys.isNative) {
@@ -524,13 +522,11 @@ cc.Class({
                         this._timeInter = 0
                         this.setProgress(this._curPro)
                     }
-
                 }
             }
         }
 
     },
-
     _isClonerAPP: function () {
         if (Global.isAndroid()) {
             var localAppVersion = parseInt(cc.vv.PlatformApiMgr.getAppVersion().split('.').join(''));
@@ -539,10 +535,39 @@ cc.Class({
                     return true
                 }
             }
-
         }
     },
-
+    // 判断是否有此游戏数据
+    getGameIsDowload(gameId) {
+        console.log("UserManager:::::",cc.vv.UserManager.gameList)
+        return cc.vv.UserManager.getGameListById(gameId);
+    },
+    TokenLoginUser(event) { 
+        var _this = this;
+        let tokenStr = this.getQueryVariable("token");
+        let gameids = this.getQueryVariable("gameid");
+        if (tokenStr && event && Number(event.code) === 200 && gameids) {
+            cc.vv.UserManager.setIsTokenLogin(true);
+            console.log(_this.getGameIsDowload(gameids));
+            // if (_this.getGameIsDowload(gameids)) {
+            //     cc.vv.GameManager.sendEnterGameReq(Number(gameids))
+            // } else {
+            //     setTimeout(() => { 
+            //         _this.TokenLoginUser(event);
+            //     }, 1500);
+            // }
+            setTimeout(() => {
+                cc.vv.GameManager.sendEnterGameReq(Number(gameids))
+            }, 1500)
+        } else {
+            if (cc.vv.AlertView) {
+                let str = cc.js.formatStr("%s can not run at this mode!", cc.vv.UserConfig.getAppName())
+                cc.vv.AlertView.showTips(str, () => {
+                    cc.game.end()
+                })
+            }
+        }
+    },
     loadNextScene: function () {
         if (this._isClonerAPP()) {
             if (cc.vv.AlertView) {
@@ -562,7 +587,18 @@ cc.Class({
         if (!cc.vv.ChipPool) {
             cc.vv.ChipPool = require("Table_Chips_Nodepool")
             cc.vv.ChipPool.init()
-
+        }
+        let tokenStr = this.getQueryVariable("token");
+        if (tokenStr) {
+            localStorage.clear(); // 清除数据  
+            let gameServer = Global.connectGamesAddress;
+            cc.vv.NetManager.connect(gameServer, function () {
+                AppLog.ShowScreen('协议2发送')
+                let req = { "c": 2, "session": tokenStr }
+                cc.vv.NetManager.send(req)
+            });
+            cc.vv.NetManager.registerMsg(MsgId.LOGIN_USERID, this.TokenLoginUser.bind(this));
+            return;
         }
         //淡出动画 
         if (Global.isNative() && Global.openUpdate) { //android、ios需要
@@ -585,7 +621,6 @@ cc.Class({
                         AppLog.ShowScreen('android提审状态不用更新,直接登陆')
                         cc.vv.GameManager.nativeSkipHotupdate()
                     }
-
                 }
             }
             else {
@@ -594,33 +629,31 @@ cc.Class({
                 AppLog.ShowScreen('刚刚热更完,直接登陆')
                 cc.vv.GameManager.nativeSkipHotupdate()
             }
-
         }
         else { //H5不需要热更新 
             AppLog.ShowScreen('H5,直接登陆')
             //  获取浏览器参数
             let langStr = this.getQueryVariable("lang") || this.getQueryVariable("language");
-            console.log("langStr:::::", langStr);
             if (langStr && langStr == "close") { Global.noI18n = true; }
             let testStr = this.getQueryVariable("test");
-            let auto = this.getQueryVariable("auto"); 
-            let gameId = 693;  //游戏ID  
+            let auto = this.getQueryVariable("auto");
             if (testStr) {
                 var localNickname = "Guest" + testStr;
                 Global.saveLocal('nick_name', localNickname);
                 var guestTokenCfg = Global.getLocal(Global.SAVE_PLAYER_TOKEN, '');
                 var guestTokenMap = guestTokenCfg.length > 0 ? JSON.parse(guestTokenCfg) : {};
                 var playerData = guestTokenMap[localNickname];
-                let token = playerData ? playerData.token : null;
+                token = playerData ? playerData.token : null;
                 if (!token || token.length <= 0) {
-                    token = (new Date()).getTime() + '_' + Global.random(1, 99999999);
+                    let token = (new Date()).getTime() + '_' + Global.random(1, 99999999);
                     guestTokenMap[localNickname] = { token: token };
                     Global.saveLocal(Global.SAVE_PLAYER_TOKEN, JSON.stringify(guestTokenMap));
                 }
-                Global.saveLocal('client_uuid', `88888888-${testStr}`); 
+                Global.saveLocal('client_uuid', `88888888-${testStr}`);
                 cc.log("全局信息::::::", Global.GlobalVar);
                 cc.vv.GameManager.reqLogin(localNickname, localNickname, Global.LoginType.Guest, '', Global.LoginExData.loginAction, token);
-                console.log("进入场景：：：："); 
+                console.log("进入场景：：：：");
+
             } else if (auto && auto == "false") {
                 cc.vv.SceneMgr.enterScene(Global.SCENE_NAME.LOGIN, this.onLoadLoginSceneFinish.bind(this));
             } else {
@@ -631,13 +664,13 @@ cc.Class({
                 // }
                 // else {
                 //     cc.vv.GameManager.autoTravellerLogin()
-                // }
-                cc.log("直接登录");
+                // } 
                 cc.vv.GameManager.nativeSkipHotupdate()
-            } 
+
+            }
         }
         // 判断游戏是直接进入还是有RoomList 
-        this.getGameIdAndGoRoom(); 
+        // this.getGameIdAndGoRoom();
     },
     onLoadHotupdateSceneFinish: function () {
         cc.log("onLoadHotupdateSceneFinish")
@@ -645,12 +678,6 @@ cc.Class({
     onLoadLoginSceneFinish: function () {
         cc.log("onLoadLoginSceneFinish")
     },
-    // 获取游戏ID并进入房间
-    getGameIdAndGoRoom(){
-        let gameId=this.getQueryVariable("gameId");
-        console.log('获取游戏ID并进入房间:::',gameId);
-        
-    },  
     // 开启热更新检测
     startHotupdate: function () {
         // 拿到当前场景内的热更新组件

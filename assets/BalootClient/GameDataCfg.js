@@ -6,7 +6,7 @@ cc.Class({
     extends: cc.Component,
 
     statics: {
-        gameDataList: null, 
+        gameDataList: null,
         // 第一次启动初始化游戏数据  dataCmp:数据脚本 dataName:数据变量名 在cc.vv对象内的成员 gameScene:游戏场景名
         init() {
             this.gameDataList = new Map();
@@ -907,100 +907,135 @@ cc.Class({
                     dataName: "gameData",
                     gameScene: "solt_loading",
                 }
-            }, //海王捕鱼
-            // {id:"FISHJOY_WKNH", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            // }}, //悟空闹海
-            // {id:"FISHJOY_JCBY", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            // }}, //金蟾捕鱼
-            // {id:"FISHJOY_LKBY", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            // }}, //李逵捕鱼
-            // {id:"YQSFISH", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            // }}, //摇钱树捕鱼
-            // {id:"FISHSTAR_DSBY", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            //     selectRoom: true,
-            // }}, //大圣捕鱼
-            // {id:"FISHSTAR_LKPY", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            //     selectRoom: true,
-            // }}, //李逵劈鱼
-            // {id:"FISHSTAR_BYZX", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            //     selectRoom: true,
-            // }}, //捕鱼之星
-            // {id:"HWFISH_918", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "hwfish918_loading",
-            //     selectRoom: true,
-            // }}, //海王捕鱼918
-            // {id:"BIRDSFISH", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            // }}, //鸟王争霸
-            // {id:"RAIDENFISH", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            // }}, //雷电捕鱼
-            // {id:"SPONGEBOB", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            // }}, //海绵宝宝
-            // {id:"FISHSTAR_DSBY_WP", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            //     selectRoom: true,
-            // }}, //大圣捕鱼万炮版
-            // {id:"FISHSTAR_LKPY_WP", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            //     selectRoom: true,
-            // }}, //李逵劈鱼万炮版
-            // {id:"FISHSTAR_BYZX_WP", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            //     selectRoom: true,
-            // }}, //捕鱼之星万炮版
-            // {id:"HWFISH_918_WP", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            //     selectRoom: true,
-            // }}, //海王捕鱼918万炮版
-            // {id:"INSECTSFISH", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            // }}, //虫虫乐园
-            // {id:"NEPTUNEFISH", rows:{
-            //     dataCmp: "FishData",
-            //     dataName: "gameData",
-            //     gameScene: "solt_loading",
-            // }}, //渔人码头
+            },
+            // 海王捕鱼
+            {
+                id: "FISHJOY_WKNH", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                }
+            }, //悟空闹海
+            {
+                id: "FISHJOY_JCBY", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                }
+            }, //金蟾捕鱼
+            {
+                id: "FISHJOY_LKBY", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                }
+            }, //李逵捕鱼
+            {
+                id: "YQSFISH", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                }
+            }, //摇钱树捕鱼
+            {
+                id: "FISHSTAR_DSBY", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                    selectRoom: true,
+                }
+            }, //大圣捕鱼
+            {
+                id: "FISHSTAR_LKPY", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                    selectRoom: true,
+                }
+            }, //李逵劈鱼
+            {
+                id: "FISHSTAR_BYZX", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                    selectRoom: true,
+                }
+            }, //捕鱼之星
+            {
+                id: "HWFISH_918", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "hwfish918_loading",
+                    selectRoom: true,
+                }
+            }, //海王捕鱼918
+            {
+                id: "BIRDSFISH", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                }
+            }, //鸟王争霸
+            {
+                id: "RAIDENFISH", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                }
+            }, //雷电捕鱼
+            {
+                id: "SPONGEBOB", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                }
+            }, //海绵宝宝
+            {
+                id: "FISHSTAR_DSBY_WP", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                    selectRoom: true,
+                }
+            }, //大圣捕鱼万炮版
+            {
+                id: "FISHSTAR_LKPY_WP", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                    selectRoom: true,
+                }
+            }, //李逵劈鱼万炮版
+            {
+                id: "FISHSTAR_BYZX_WP", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                    selectRoom: true,
+                }
+            }, //捕鱼之星万炮版
+            {
+                id: "HWFISH_918_WP", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                    selectRoom: true,
+                }
+            }, //海王捕鱼918万炮版
+            {
+                id: "INSECTSFISH", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                }
+            }, //虫虫乐园
+            {
+                id: "NEPTUNEFISH", rows: {
+                    dataCmp: "FishData",
+                    dataName: "gameData",
+                    gameScene: "solt_loading",
+                }
+            }, //渔人码头
 
             {
                 id: "SLOT_TLG", rows: {
@@ -3164,7 +3199,7 @@ cc.Class({
                     mainScene: "GoddessOfDeath",
                     orientation: "portrait",
                 }
-            }, 
+            },
             // 光明精灵
             {
                 id: "SLOT_ELVESBLESSING", rows: {
@@ -4534,8 +4569,8 @@ cc.Class({
             })
         },
 
-        getGameData(gameId) { 
-            cc.log("获取游戏ID",gameId);
+        getGameData(gameId) {
+            cc.log("获取游戏ID", gameId);
             gameId = Number(gameId);
             if (this.gameDataList.has(gameId)) {
                 return this.gameDataList.get(gameId);

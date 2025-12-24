@@ -387,10 +387,11 @@ cc.Class({
             if (data.id == 256) round = 5;
             // 发生加入房间请求
             let checkEndCall = function(){
+                let uid=cc.vv.UserManager.uid||0;
                 if (round >= 0) {
-                    cc.vv.NetManager.send({ c: MsgId.GAME_ENTER_MATCH, round: round, ssid: cfg.ssid, gameid: data.id }, true);
+                    cc.vv.NetManager.send({ c: MsgId.GAME_ENTER_MATCH, round: round, ssid: cfg.ssid, gameid: data.id,uid:uid }, true);
                 } else {
-                    cc.vv.NetManager.send({ c: MsgId.GAME_ENTER_MATCH, ssid: cfg.ssid, gameid: data.id }, true);
+                    cc.vv.NetManager.send({ c: MsgId.GAME_ENTER_MATCH, ssid: cfg.ssid, gameid: data.id,uid:uid }, true);
                 }
             }
 

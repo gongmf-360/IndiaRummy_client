@@ -106,15 +106,15 @@ cc.Class({
     loginFail: function (event) {
         this._isLoginning = false;
         let errCode = event.detail;
-        
-        if(errCode == 803){
+
+        if (errCode == 803) {
             //停服公告
             cc.vv.NetManager.requestHttp('', null, this.recvMailtenance.bind(this), Global.haoUrl);
         }
         // else{
         //     cc.vv.FloatTip.show(cc.vv.UserConfig.spcode2String(errCode), true);
         // }
-        
+
     },
 
 
@@ -122,7 +122,6 @@ cc.Class({
     onJudgeAgreement() {
         return true
     },
-
     // 重新登录
     reLogin() {
         let tokenList = Global.getLocal(Global.SAVE_PLAYER_TOKEN);
@@ -134,8 +133,7 @@ cc.Class({
         }
         Global.saveLocal(Global.SAVE_PLAYER_TOKEN, JSON.stringify(tokenList));
         this._tokenList = tokenList;
-    },
-
+    }, 
     // onOpenDevLogin() {
     //     cc.vv.EventManager.emit("EVENT_BTN_CLICK_SOUNDS");
     //     this._screct_click_count += 1;

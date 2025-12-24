@@ -83,7 +83,8 @@ cc.Class({
             // 不需要选择押注界面
             // cc.vv.GameManager.EnterGame(this.gameid)
             let tempcfg = {"292":21,"265":11,"291":31,"269":41,"287":51,"255":61}
-            cc.vv.NetManager.send({ c: MsgId.GAME_ENTER_MATCH, ssid: tempcfg[this.gameid], gameid: this.gameid }, true);
+                let uid=cc.vv.UserManager.uid||0;
+            cc.vv.NetManager.send({ c: MsgId.GAME_ENTER_MATCH, ssid: tempcfg[this.gameid], gameid: this.gameid,uid:uid }, true);
             return
         }
         let gameCfg = cc.vv.UserConfig.getGameMapInfo(this.gameid)

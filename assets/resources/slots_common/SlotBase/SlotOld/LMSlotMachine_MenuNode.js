@@ -11,11 +11,8 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        this.registerEvent()
-
-        
-
+    onLoad () { 
+        this.registerEvent() 
         //关闭
         Global.btnClickEvent(cc.find("btn_close", this.node), this.onBtnMenuClose, this);
         
@@ -36,11 +33,15 @@ cc.Class({
         // Global.btnClickEvent(cc.find("btn_rate", this.node), this.onMenuRateClicked, this);
         // //隐私协议
         // Global.btnClickEvent(cc.find("btn_privacyPolicy", this.node), this.onMenuPolicyClicked, this);
-        
-        //退出
-        Global.btnClickEvent(cc.find("btn_exit", this.node), this.onMenuExit, this);
+        //退出 
+        Global.btnClickEvent(cc.find("btn_exit", this.node), this.onMenuExit, this); 
+        // Global.btnClickEvent(cc.find("btn_exit", this.node), this.onMenuExit, this);
     },
-
+        getUrlParams(key) {
+            let search = window.location.search;
+            let params = new URLSearchParams(search);
+            return params.get(key) || false;
+        },
     start () {
         //点击空白部分
         let node_out = new cc.Node('node_out')
@@ -209,6 +210,7 @@ cc.Class({
 
     //返回大厅
     onMenuExit:function(){
+        if(cc.vv.UserManager.getIsTokenLogin()) return; 
         cc.vv.AudioManager.playEff(eff_cfg.path, eff_cfg.filename, eff_cfg.common)
         if(cc.vv.gameData){
             if(this._bSendExist) return

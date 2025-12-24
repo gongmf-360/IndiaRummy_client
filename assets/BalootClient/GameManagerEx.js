@@ -112,11 +112,11 @@ cc.Class({
             if (msgDic.code === 200) {
                 // 加载固定配置只加载在一次
                 if (!this.loginConfig) {
-                    this.loginConfig = await cc.vv.NetManager.asyncSend({ c: MsgId.GAME_CONFIG });
+                    this.loginConfig = await cc.vv.NetManager.asyncSend({ c: MsgId.GAME_CONFIG, uid: msgDic.playerInfo.uid });
                 }
                 cc.vv.UserManager.initPlayerData(msgDic, this.loginConfig);
                 //登陆成功
-                cc.vv.PlatformApiMgr.KoSDKTrackEvent('af_login', JSON.stringify({ uid: msgDic.uid }))
+                cc.vv.PlatformApiMgr.KoSDKTrackEvent('af_login', JSON.stringify({ uid: msgDic.playerInfo.uid }))
                 //断线重连清理引导标志，以防卡死
                 Global.dispatchEvent(EventId.ENTER_LOGIN_SUCCESS, msgDic);
                 let loginType = cc.vv.UserManager.getLoginType()
@@ -232,19 +232,6 @@ cc.Class({
             else {
                 this.goBackLoginScene()
             }
-            // 包网直接进入游戏 
-            // 浏览器参数控制是否进入游戏
-            let gameId = this.getUrlParams("gameId");
-            if (gameId) {
-                Global.gameClickHeaderCoin = true;
-                // 判断游戏是否已下载 
-                setTimeout(() => {
-                    this.sendEnterGameReq(Number(gameId));
-                }, 2000)
-            }
-        },
-        // 判断是否已经下载
-        isDowload() {
 
         },
         getUrlParams(key) {

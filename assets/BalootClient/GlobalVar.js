@@ -3,21 +3,20 @@
 */
 
 let ServerList = {
-    1: "43.128.206.225:9951",            // slot
-    2: "43.128.206.225:9951",            // machen
-    3: "43.128.206.225:9951",            // liyi
-    4: "43.128.206.225:9951",
-    5: "43.128.206.225:9951",            // test
-    6: "43.128.206.225:9951",            // haoran
+    1: "192.168.1.57",            // slot
+    2: "192.168.1.57",            // machen
+    3: "192.168.1.57",            // liyi
+    4: "xyule.cyou",            // release
+    5: "192.168.1.57",            // test
+    6: "192.168.1.57",            // haoran
 };
 
 var GlobalVar = cc.Class({
     extends: cc.Component,
-
     statics: {
-        // 登录游戏服地址
-        loginServerAddress: ServerList[CC_BUILD ? 4 : 2],
-
+        loginServerAddress: ServerList[CC_BUILD ? 4 : 2] + '/login',
+        connectGamesAddress: ServerList[CC_BUILD ? 4 : 2] + "/game",
+        wsHead: CC_BUILD ? "wss://" : "ws://", // 协议头
         localVersion: true,
         publishMode: false,  //发布的时候需要改成true,启用子包
         openUpdate: false,
@@ -43,6 +42,7 @@ var GlobalVar = cc.Class({
         apiUrl: "http://inter.yonogames.com",
         //提审
         haoUrl: "https://inter.yonogames.com/hao.html",
+        userBaseUrl: `https://${ServerList[CC_BUILD ? 4 : 2]}:7002`,
         fackbookLink: "https://www.facebook.com/cashheroslots/",     //fackbook链接  rummyslots/cashheroslots/...
         androidApi: "http://47.99.169.162:6180/",
         //提审

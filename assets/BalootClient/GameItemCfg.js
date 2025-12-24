@@ -74,24 +74,24 @@ module.exports = {
     [GAME_ID.C_JETX]: {title: "JetX", name: "JetX", action: "JetX"}, // JetX
 
 
-    // [GAME_ID.HWFISH]: {title: "haiwangbuyu", name: "hwfish", action: "haiwangbuyu"}, // 海王捕鱼
-    // [GAME_ID.FISHJOY_WKNH]: {title: "wukongnaohai", name: "fishjoy", action: "wukongnaohai"},// 悟空闹海
-    // [GAME_ID.FISHJOY_JCBY]: {title: "jinchanbuyu", name: "fishjoy", action: "jinchanbuyu"},// 金蟾捕鱼
-    // [GAME_ID.FISHJOY_LKBY]: {title: "likuibuyu", name: "fishjoy", action: "likuibuyu"}, // 李逵捕鱼
-    // [GAME_ID.YQSFISH]: {title: "yaoqianshubuyu", name: "yqsfish", action: "yaoqianshubuyu"},// 摇钱树捕鱼
-    // [GAME_ID.FISHSTAR_DSBY]: {title: "dashennaohai", name: "fishstar", action: "dashengnaohai"},// 大圣捕鱼
-    // [GAME_ID.FISHSTAR_LKPY]: {title: "likuipiyu", name: "fishstar", action: "likuipiyu"},// 李逵劈鱼
-    // [GAME_ID.FISHSTAR_BYZX]: {title: "fishstar", name: "fishstar", action: "buyuzhixin"}, // 捕鱼之星
-    // // [GAME_ID.HWFISH_918]: {title: "haiwangbuyu918", name: "hwfish918", action: "hwbyzj"}, // 海王捕鱼918
-    // [GAME_ID.BIRDSFISH]: {title: "niaowangzhengba", name: "birdsfish", action: "niaowangzhengba"}, // 鸟王争霸
-    // [GAME_ID.RAIDENFISH]: {title: "leidianbuyu", name: "raidenfish", action: "leidianbuyu"}, // 雷电捕鱼
-    // [GAME_ID.SPONGEBOB]: {title: "haimianbaobao", name: "spongebob", action: "haimianbaobao"}, // 海绵宝宝
-    // [GAME_ID.FISHSTAR_DSBY_WP]: {title: "dashennaohaiwanpao", name: "fishstar", action: "dashengnaohai10000"},// 大圣捕鱼万炮版
-    // [GAME_ID.FISHSTAR_LKPY_WP]: {title: "likuipiyuwanpao", name: "fishstar", action: "likuipiyu10000"},// 李逵劈鱼万炮版
-    // [GAME_ID.FISHSTAR_BYZX_WP]: {title: "fishstarwanpao", name: "fishstar", action: "buyuzhixin10000"}, // 捕鱼之星万炮版
-    // [GAME_ID.HWFISH_918_WP]: {title: "haiwangbuyuwanpao", name: "hwfish918", action: "hwbyzj10000"}, // 海王捕鱼918万炮版
-    // [GAME_ID.INSECTSFISH]: {title: "chongchongleyuan", name: "insectsfish", action: "bugs_wonder_land"}, // 虫虫乐园
-    // [GAME_ID.NEPTUNEFISH]: {title: "yurenmatou", name: "neptunefish", action: "pikachu"}, // 渔人码头
+    [GAME_ID.HWFISH]: {title: "haiwangbuyu", name: "hwfish", action: "haiwangbuyu"}, // 海王捕鱼
+    [GAME_ID.FISHJOY_WKNH]: {title: "wukongnaohai", name: "fishjoy", action: "wukongnaohai"},// 悟空闹海
+    [GAME_ID.FISHJOY_JCBY]: {title: "jinchanbuyu", name: "fishjoy", action: "jinchanbuyu"},// 金蟾捕鱼
+    [GAME_ID.FISHJOY_LKBY]: {title: "likuibuyu", name: "fishjoy", action: "likuibuyu"}, // 李逵捕鱼
+    [GAME_ID.YQSFISH]: {title: "yaoqianshubuyu", name: "yqsfish", action: "yaoqianshubuyu"},// 摇钱树捕鱼
+    [GAME_ID.FISHSTAR_DSBY]: {title: "dashennaohai", name: "fishstar", action: "dashengnaohai"},// 大圣捕鱼
+    [GAME_ID.FISHSTAR_LKPY]: {title: "likuipiyu", name: "fishstar", action: "likuipiyu"},// 李逵劈鱼
+    [GAME_ID.FISHSTAR_BYZX]: {title: "fishstar", name: "fishstar", action: "buyuzhixin"}, // 捕鱼之星
+    // [GAME_ID.HWFISH_918]: {title: "haiwangbuyu918", name: "hwfish918", action: "hwbyzj"}, // 海王捕鱼918
+    [GAME_ID.BIRDSFISH]: {title: "niaowangzhengba", name: "birdsfish", action: "niaowangzhengba"}, // 鸟王争霸
+    [GAME_ID.RAIDENFISH]: {title: "leidianbuyu", name: "raidenfish", action: "leidianbuyu"}, // 雷电捕鱼
+    [GAME_ID.SPONGEBOB]: {title: "haimianbaobao", name: "spongebob", action: "haimianbaobao"}, // 海绵宝宝
+    [GAME_ID.FISHSTAR_DSBY_WP]: {title: "dashennaohaiwanpao", name: "fishstar", action: "dashengnaohai10000"},// 大圣捕鱼万炮版
+    [GAME_ID.FISHSTAR_LKPY_WP]: {title: "likuipiyuwanpao", name: "fishstar", action: "likuipiyu10000"},// 李逵劈鱼万炮版
+    [GAME_ID.FISHSTAR_BYZX_WP]: {title: "fishstarwanpao", name: "fishstar", action: "buyuzhixin10000"}, // 捕鱼之星万炮版
+    [GAME_ID.HWFISH_918_WP]: {title: "haiwangbuyuwanpao", name: "hwfish918", action: "hwbyzj10000"}, // 海王捕鱼918万炮版
+    [GAME_ID.INSECTSFISH]: {title: "chongchongleyuan", name: "insectsfish", action: "bugs_wonder_land"}, // 虫虫乐园
+    [GAME_ID.NEPTUNEFISH]: {title: "yurenmatou", name: "neptunefish", action: "pikachu"}, // 渔人码头
 
     [GAME_ID.SLOT_GDF]: {title: "caishendao", name: "godofwealth", action: "caishendao"},// 财神到
     [GAME_ID.SLOT_AFG]: {title: "feizhouconglin", name: "african_jungle", action: "feizhouconglin"},// 非洲丛林

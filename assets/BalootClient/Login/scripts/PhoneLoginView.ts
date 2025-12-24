@@ -134,8 +134,7 @@ export default class PhoneLoginView extends cc.Component {
                 data.cts = str
                 data.ddid = Global.getLocal('client_uuid', '')
                 cc.vv.NetManager.requestHttp('/phone', data, (state, res) => {
-                    //没有返回值的
-                    
+                    //没有返回值的 
                 }, Global.apiUrl, "POST")
             }
         }

@@ -186,6 +186,7 @@ cc.Class({
 
         //处理消息
         handleMsg: function (msgDic) {
+            console.log("消息监听：：：：",msgDic);
             if (!msgDic) return;
             if (this.cacheIdxList.indexOf(msgDic.c_idx) < 0) this.printNetLog("Receive", msgDic);
             var cmd = msgDic.c
@@ -416,24 +417,18 @@ cc.Class({
         //连接
         connect: function (serverAddress, callback) {
             var self = this;
-            this.no_need_reconnect = null
-
-            this._address = serverAddress;
-
-            if (this._ws) this.close();
-
-            var wsHead = 'ws://'
-            let bUse = Global.isUserWSS(serverAddress)
-            if (bUse) {
-                wsHead = 'wss://'
-            }
+            this.no_need_reconnect = null 
+            this._address = serverAddress; 
+            if (this._ws) this.close(); 
+            var wsHead = Global.wsHead;
+            let bUse = Global.isUserWSS(serverAddress) 
             if (Global.isAndroid() && bUse) {
                 //android原生平台如果用wss的话，必须要传后两个参数，不然链接不上服务器
                 //至于这个pem，我也是网上下载的。。。
-                this._ws = new WebSocket(wsHead + this._address + '/ws', [], cc.url.raw("resources/common/cert.pem"));
+                this._ws = new WebSocket(wsHead + this._address, [], cc.url.raw("resources/common/cert.pem"));
             }
             else {
-                this._ws = new WebSocket(wsHead + this._address + '/ws');
+                this._ws = new WebSocket(wsHead + this._address );
             }
 
             this._ws.onopen = function (event) {

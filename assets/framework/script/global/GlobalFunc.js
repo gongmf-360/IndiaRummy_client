@@ -14,59 +14,57 @@ GlobalFunc.isNative = function () {
 
 // 设置是否震动
 // 设置 true false
-GlobalFunc.setShake = function(value){
+GlobalFunc.setShake = function (value) {
     GlobalFunc.shake = value;
-    cc.sys.localStorage.setItem("shake",value);
-    Global.dispatchEvent(EventId.SET_SHAKE,value);
+    cc.sys.localStorage.setItem("shake", value);
+    Global.dispatchEvent(EventId.SET_SHAKE, value);
 }
 
 // 获取当前震动值
 // 返回ture false
-GlobalFunc.getShake = function(value){
+GlobalFunc.getShake = function (value) {
     return GlobalFunc.shake;
 }
 /*
 ** 是否是Adnroid
 */
 GlobalFunc.isAndroid = function () {
-	return cc.sys.os == cc.sys.OS_ANDROID;
+    return cc.sys.os == cc.sys.OS_ANDROID;
 }
 
 /*
 ** 是否是IOS 
 */
 GlobalFunc.isIOS = function () {
-	return cc.sys.os == cc.sys.OS_IOS;
+    return cc.sys.os == cc.sys.OS_IOS;
 }
 
 /*
 ** 是否是IOS审核版本
 */
 GlobalFunc.isIOSReview = function () {
-	if (!GlobalFunc.isIOS()) {
+    if (!GlobalFunc.isIOS()) {
         return false;
-	}
-	else {
-		return Global.isReview;
-	}
+    } else {
+        return Global.isReview;
+    }
 }
 
-GlobalFunc.isIOSAndroidReview = function(){
-    if(Global.isNative()){
+GlobalFunc.isIOSAndroidReview = function () {
+    if (Global.isNative()) {
         return Global.isIOSReview() || (Global.isAndroidReview && Global.isAndroid())
-    }
-    else{
+    } else {
         return false
     }
-    
+
 },
 
-/*
-** 是否关闭购买
-*/
-GlobalFunc.isClosePurchase = function () {
-	return Global.appId==Global.APPID.HuaweiDRM; //华为DRM 关闭购买功能
-}
+    /*
+    ** 是否关闭购买
+    */
+    GlobalFunc.isClosePurchase = function () {
+        return Global.appId == Global.APPID.HuaweiDRM; //华为DRM 关闭购买功能
+    }
 
 /*
 ** 获取设备ID
@@ -80,55 +78,55 @@ GlobalFunc.getDeviceId = function () {
 ** 再次封装，主要是打印
 */
 GlobalFunc.emit = function (node, eventId, dic) {
-	if (node) {
-		node.emit(eventId, dic);
-		if (Global.localVersion) {
-			dic.eventId = eventId;
-			cc.log('emit', JSON.stringify(dic));
-		}
-	}
+    if (node) {
+        node.emit(eventId, dic);
+        if (Global.localVersion) {
+            dic.eventId = eventId;
+            cc.log('emit', JSON.stringify(dic));
+        }
+    }
 }
 
 /*
 ** 注册事件监听
 */
 GlobalFunc.on = function (node, eventId, func, target) {
-	if (node) {
-		node.on(eventId, func, target);
-		if (Global.localVersion) {
-			cc.log('node(' + node.getName() + ') on ' + 'eventId(' + eventId + ')');
-		}
-	}
+    if (node) {
+        node.on(eventId, func, target);
+        if (Global.localVersion) {
+            cc.log('node(' + node.getName() + ') on ' + 'eventId(' + eventId + ')');
+        }
+    }
 }
 
 /*
 ** 注销事件监听
 */
 GlobalFunc.off = function (node, eventId, func, target) {
-	if (node) {
-		node.off(eventId, func, target);
-		if (Global.localVersion) {
-			cc.log('node(' + node.getName() + ') off ' + 'eventId(' + eventId + ')');
-		}
-	}
+    if (node) {
+        node.off(eventId, func, target);
+        if (Global.localVersion) {
+            cc.log('node(' + node.getName() + ') off ' + 'eventId(' + eventId + ')');
+        }
+    }
 }
 
 /*
 ** retain对象(未开启长期持有C++底层对象时)
 */
 GlobalFunc.retain = function (obj) {
-	// if (!cc.sys.ENABLE_GC_FOR_NATIVE_OBJECTS) {
-	// 	obj.retain();
-	// }
+    // if (!cc.sys.ENABLE_GC_FOR_NATIVE_OBJECTS) {
+    // 	obj.retain();
+    // }
 }
 
 /*
 ** release对象(未开启长期持有C++底层对象时)
-*/ 
+*/
 GlobalFunc.release = function (obj) {
-	// if (obj && !cc.sys.ENABLE_GC_FOR_NATIVE_OBJECTS) {
-	// 	obj.release();
-	// }
+    // if (obj && !cc.sys.ENABLE_GC_FOR_NATIVE_OBJECTS) {
+    // 	obj.release();
+    // }
 }
 
 /*
@@ -137,14 +135,14 @@ GlobalFunc.release = function (obj) {
 ** 方便下一个场景可以通过这个节点访问数据
 */
 GlobalFunc.addPersistNode = function (node) {
-	cc.game.addPersistRootNode(node);
+    cc.game.addPersistRootNode(node);
 }
 
 /*
 ** 移除常驻节点
-*/ 
+*/
 GlobalFunc.removePersistNode = function (node) {
-	cc.game.removePersistRootNode(node)
+    cc.game.removePersistRootNode(node)
 }
 
 /*
@@ -154,6 +152,7 @@ GlobalFunc.saveLocal = function (key, str) {
     key += '';
     str += '';
     //cc.sys.localStorage.setItem(key, str);
+    // cc.sys.localStorage.setItem(key, str);
     cc.sys.localStorage.setItem(Global.compile(key), Global.compile(str));
 }
 
@@ -165,10 +164,10 @@ GlobalFunc.getLocal = function (key, defaultStr) {
     //var str = cc.sys.localStorage.getItem(key);
     var str = cc.sys.localStorage.getItem(Global.compile(key));
     if (str) str = Global.uncompile(str);
-	if (!str || str.length <= 0) {
-		str = defaultStr
-	}
-	return str;
+    if (!str || str.length <= 0) {
+        str = defaultStr
+    }
+    return str;
 }
 
 /*
@@ -184,9 +183,9 @@ GlobalFunc.deleteLocal = function (key) {
 ** 简单加密字符串
 */
 GlobalFunc.compile = function (code) {
-    var c=String.fromCharCode(code.charCodeAt(0)+code.length);  
-    for(var i=1;i<code.length;i++){  
-        c+=String.fromCharCode(code.charCodeAt(i)+code.charCodeAt(i-1));  
+    var c = String.fromCharCode(code.charCodeAt(0) + code.length);
+    for (var i = 1; i < code.length; i++) {
+        c += String.fromCharCode(code.charCodeAt(i) + code.charCodeAt(i - 1));
     }
     // alert(escape(c));
     c = escape(c);
@@ -197,12 +196,12 @@ GlobalFunc.compile = function (code) {
 ** 简单解密字符串
 */
 GlobalFunc.uncompile = function (code) {
-    code=unescape(code);  
-    var c=String.fromCharCode(code.charCodeAt(0)-code.length);  
-    for(var i=1;i<code.length;i++){  
-        c+=String.fromCharCode(code.charCodeAt(i)-c.charCodeAt(i-1));  
-    }  
-   return c;  
+    code = unescape(code);
+    var c = String.fromCharCode(code.charCodeAt(0) - code.length);
+    for (var i = 1; i < code.length; i++) {
+        c += String.fromCharCode(code.charCodeAt(i) - c.charCodeAt(i - 1));
+    }
+    return c;
 }
 
 
@@ -211,13 +210,13 @@ GlobalFunc.uncompile = function (code) {
 ** 第一个参数必须是函数类型
 */
 GlobalFunc.bindParams = function () {
-	var args = Array.prototype.slice.call(arguments);
-	var func = args.shift();
-	if (typeof(func) != 'function') return;
+    var args = Array.prototype.slice.call(arguments);
+    var func = args.shift();
+    if (typeof (func) != 'function') return;
 
-    return function() {
-      return func.apply(null, args.concat(Array.prototype.slice.call(arguments)));
-  };
+    return function () {
+        return func.apply(null, args.concat(Array.prototype.slice.call(arguments)));
+    };
 }
 
 /*
@@ -226,27 +225,27 @@ GlobalFunc.bindParams = function () {
 ** min期望的最小值
 */
 GlobalFunc.random = function (min, max) {
-	return Math.floor(Math.random()*(max-min+1)+min);
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 /**
  * 随机多个数
- * @returns 
+ * @returns
  */
-GlobalFunc.randomArray = function(n,min,max){
+GlobalFunc.randomArray = function (n, min, max) {
     let arr = []
-    let isExist = function(val){
-        for(let i = 0; i < arr.length; i++){
-            if(val == arr[i]){
+    let isExist = function (val) {
+        for (let i = 0; i < arr.length; i++) {
+            if (val == arr[i]) {
                 return true
             }
         }
         return false
     }
-    for(let i = 0; i < n ;i++){
-        let item = Global.random(min,max)
-        while(isExist(item)){
-            item = Global.random(min,max)
+    for (let i = 0; i < n; i++) {
+        let item = Global.random(min, max)
+        while (isExist(item)) {
+            item = Global.random(min, max)
         }
         arr[i] = item
     }
@@ -270,8 +269,8 @@ GlobalFunc.random0To1 = function () {
 /*
 ** 对象 深拷贝
 */
-GlobalFunc.copy = function (obj){
-    if(cc.js.isNumber(obj) || cc.js.isString(obj)){ //简单类型
+GlobalFunc.copy = function (obj) {
+    if (cc.js.isNumber(obj) || cc.js.isString(obj)) { //简单类型
         return obj
     }
     var newObj = obj instanceof Array ? [] : {}
@@ -288,66 +287,64 @@ GlobalFunc.copy = function (obj){
 /*
 ** string转化成Bytes
 */
-GlobalFunc.stringToBytes = function ( str ) {  
-    var ch, re = []; 
-    for (var i = 0; i < str.length; i++ ) { 
+GlobalFunc.stringToBytes = function (str) {
+    var ch, re = [];
+    for (var i = 0; i < str.length; i++) {
         ch = str.charCodeAt(i);  // get char
         var st = [];
-		do {  
-        	st.push( ch & 0xFF );  // push byte to stack  
-        	ch = ch >> 8;          // shift value down by 1 byte  
-    	}
-    	while ( ch );  
-    	// add stack contents to result  
-    	// done because chars have "wrong" endianness
-        re = re.concat( st.reverse() ); 
-    }  
+        do {
+            st.push(ch & 0xFF);  // push byte to stack
+            ch = ch >> 8;          // shift value down by 1 byte
+        } while (ch);
+        // add stack contents to result
+        // done because chars have "wrong" endianness
+        re = re.concat(st.reverse());
+    }
     // return an array of bytes  
-    return re;  
-} 
+    return re;
+}
 
 /*
 ** 转化value=n*256+m为字符串nm
 */
 GlobalFunc.jsToCByShort = function (value) {
-	var low1 = Math.floor(value / 256);
-	var low2 = Math.floor(value % 256);
-	/*var lowByte1 = GlobalFunc.charToByte(low1,low2);
-	var lowByte2 = GlobalFunc.charToByte(low2);*/
-	return String.fromCharCode(low1,low2);
+    var low1 = Math.floor(value / 256);
+    var low2 = Math.floor(value % 256);
+    /*var lowByte1 = GlobalFunc.charToByte(low1,low2);
+    var lowByte2 = GlobalFunc.charToByte(low2);*/
+    return String.fromCharCode(low1, low2);
 }
 
 /*
 ** 转化m+n*2^24+k*2^16+l*2^8=为字符串mnkl
 */
 GlobalFunc.jsToCByInt = function (value) {
-	var low1 = Math.floor(value / (256*256*256))
-	var low2 = Math.floor(value / (256*256)) % 256
-	var low3 = Math.floor(value / 256) % 256
-	var low4 = Math.floor(value % 256)
-	/*var lowByte1 = GlobalFunc.charToByte(low1);
-	var lowByte2 = GlobalFunc.charToByte(low2);
-	var lowByte3 = GlobalFunc.charToByte(low3);
-	var lowByte4 = GlobalFunc.charToByte(low4);*/
-	return String.fromCharCode(low1,low2,low3,low4);
+    var low1 = Math.floor(value / (256 * 256 * 256))
+    var low2 = Math.floor(value / (256 * 256)) % 256
+    var low3 = Math.floor(value / 256) % 256
+    var low4 = Math.floor(value % 256)
+    /*var lowByte1 = GlobalFunc.charToByte(low1);
+    var lowByte2 = GlobalFunc.charToByte(low2);
+    var lowByte3 = GlobalFunc.charToByte(low3);
+    var lowByte4 = GlobalFunc.charToByte(low4);*/
+    return String.fromCharCode(low1, low2, low3, low4);
 }
 
 /*
 ** 计算长度
 */
 GlobalFunc.srcSum = function (strData, len) {
-	var sum = 65535;
-	for (var i=0; i < len; i++) {
-		var d = strData[i];
-		sum = sum^d;
-		if ((sum & 1) == 0) {
-			sum = sum>>1;
-		}
-		else {
-			sum = (sum>>1)^(0x70B1);
-		}
-	}
-	return sum;
+    var sum = 65535;
+    for (var i = 0; i < len; i++) {
+        var d = strData[i];
+        sum = sum ^ d;
+        if ((sum & 1) == 0) {
+            sum = sum >> 1;
+        } else {
+            sum = (sum >> 1) ^ (0x70B1);
+        }
+    }
+    return sum;
 }
 
 
@@ -380,7 +377,7 @@ GlobalFunc.convertGPS2GCJ = function (lng, lat) {
         ret += (160.0 * Math.sin(lat / 12.0 * PI) + 320 * Math.sin(lat * PI / 30.0)) * 2.0 / 3.0;
         return ret
     }
-     
+
     function transformlng(lng, lat) {
         var ret = 300.0 + lng + 2.0 * lat + 0.1 * lng * lng + 0.1 * lng * lat + 0.1 * Math.sqrt(Math.abs(lng));
         ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
@@ -398,17 +395,17 @@ GlobalFunc.convertGPS2GCJ = function (lng, lat) {
     //     return {lat:lat, lng:lng}
     // }
     // else {
-        var dlat = transformlat(lng - 105.0, lat - 35.0);
-        var dlng = transformlng(lng - 105.0, lat - 35.0);
-        var radlat = lat / 180.0 * PI;
-        var magic = Math.sin(radlat);
-        magic = 1 - ee * magic * magic;
-        var sqrtmagic = Math.sqrt(magic);
-        dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
-        dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
-        var mglat = lat + dlat;
-        var mglng = lng + dlng;
-        return {lat:mglat, lng:mglng};
+    var dlat = transformlat(lng - 105.0, lat - 35.0);
+    var dlng = transformlng(lng - 105.0, lat - 35.0);
+    var radlat = lat / 180.0 * PI;
+    var magic = Math.sin(radlat);
+    magic = 1 - ee * magic * magic;
+    var sqrtmagic = Math.sqrt(magic);
+    dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+    dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+    var mglat = lat + dlat;
+    var mglng = lng + dlng;
+    return {lat: mglat, lng: mglng};
     // }
 }
 /*
@@ -464,8 +461,7 @@ GlobalFunc.convertGPS2GCJ = function (lat,lng) {
 GlobalFunc.gcj02towgs84 = function (lng, lat) {
     if (out_of_china(lng, lat)) {
         return [lng, lat]
-    }
-    else {
+    } else {
         var dlat = transformlat(lng - 105.0, lat - 35.0);
         var dlng = transformlng(lng - 105.0, lat - 35.0);
         var radlat = lat / 180.0 * PI;
@@ -488,7 +484,7 @@ GlobalFunc.gcj02towgs84 = function (lng, lat) {
 ** @param cb 回调,返回街道地址
 ** [[ {"status":0,"result":{"location":{"lng":111.07259999999997,"lat":26.268391095085833},"formatted_address":"广西壮族自治区桂林市全州县","business":"","addressComponent":{"country":"中国","country_code":0,"province":"广西壮族自治区","city":"桂林市","district":"全州县","town":"","adcode":"450324","street":"","street_number":"","direction":"","distance":""},"pois":[],"roads":[],"poiRegions":[],"sematic_description":"","cityCode":142}} ]]
 */
-GlobalFunc.getAddressDetail = function (lat,lng,cb) {
+GlobalFunc.getAddressDetail = function (lat, lng, cb) {
     //因获取的是高德地图经纬度(火星坐标)，这里需要换算到百度地图的经纬度
     /*var posData = convertGCJ2DB(lat,lng)
     lat = posData.lat;
@@ -522,21 +518,21 @@ GlobalFunc.getAddressDetail = function (lat,lng,cb) {
 ** @description 计算两个经纬度点间的距离
 ** @return 距离（number），千米
 */
-GlobalFunc.getDistanceOfTwoPoint = function (lat1,lng1,lat2,lng2) {
-    AppLog.log(lat1,lng1,lat2,lng2);
+GlobalFunc.getDistanceOfTwoPoint = function (lat1, lng1, lat2, lng2) {
+    AppLog.log(lat1, lng1, lat2, lng2);
 
     //角度转弧度
     var angleToRadian = function (angle) {
-    	return angle*Math.PI/180;
+        return angle * Math.PI / 180;
     }
 
     var radlat1 = angleToRadian(lat1);
-    var radlat2 = angleToRadian(lat2);;
+    var radlat2 = angleToRadian(lat2);
     var a = radlat1 - radlat2;
     var b = angleToRadian(lng1) - angleToRadian(lng2);
-    var distance = 2 * Math.asin( Math.sqrt( Math.pow( Math.sin(a/2),2)+ Math.cos(radlat1) * Math.cos(radlat2) * Math.pow( Math.sin(b/2),2)));
+    var distance = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.pow(Math.sin(b / 2), 2)));
     var earth_radius = 6378.137;
-    distance = distance*earth_radius;
+    distance = distance * earth_radius;
     return Math.abs(distance);
 }
 
@@ -548,29 +544,29 @@ GlobalFunc.getDistanceOfTwoPoint = function (lat1,lng1,lat2,lng2) {
 ** decimal 小数点后保留位数
 ** costomunitArr 自定义后缀 ['','W','Y','H']
 ** criticalValue 触发转换的临界值；默认等于进制 例如 10000才会触发 10k转换；1000不会转换成1k
-*/ 
+*/
 GlobalFunc.convertNumToShort = function (num, radix, decimal, costomunitArr, criticalValue) {
-	 // var unitArr = ['', '万', '亿', '万亿'];
+    // var unitArr = ['', '万', '亿', '万亿'];
     var unitArr = ['', 'K', 'M', 'B', 'T', 'Q'];
-	var sign = (num != 0)?num/Math.abs(num):1;  //符号
-	num = Math.abs(num);
+    var sign = (num != 0) ? num / Math.abs(num) : 1;  //符号
+    num = Math.abs(num);
 
-	//替换自定义后缀
-	if(costomunitArr){
-		unitArr = costomunitArr
-	}
+    //替换自定义后缀
+    if (costomunitArr) {
+        unitArr = costomunitArr
+    }
 
-	radix = (radix == null)?1000:radix; //默认值  10000万亿
-	decimal = (decimal == null)?1:decimal; //默认值
-    criticalValue = (criticalValue == null)?radix:criticalValue; //默认值  进制
-	var sum = 0;
-	while (num >= criticalValue) {
-		sum ++;
-		num = num/radix;
-	}
-	num = Math.floor(num*Math.pow(10, decimal))/Math.pow(10, decimal);
-	
-	return num*sign + unitArr[sum];	
+    radix = (radix == null) ? 1000 : radix; //默认值  10000万亿
+    decimal = (decimal == null) ? 1 : decimal; //默认值
+    criticalValue = (criticalValue == null) ? radix : criticalValue; //默认值  进制
+    var sum = 0;
+    while (num >= criticalValue) {
+        sum++;
+        num = num / radix;
+    }
+    num = Math.floor(num * Math.pow(10, decimal)) / Math.pow(10, decimal);
+
+    return num * sign + unitArr[sum];
 }
 
 /*
@@ -653,40 +649,33 @@ GlobalFunc.convertNumToChineseNum = function (moneyNum) {
 ** （串，长度，增加....）
 */
 GlobalFunc.subStrOfChinese = function (str, len, hasDot) {
-	var newLength = 0;  
-    var newStr = "";  
-    var chineseRegex = /[^\x00-\xff]/g;  
+    var newLength = 0;
+    var newStr = "";
+    var chineseRegex = /[^\x00-\xff]/g;
     var singleChar = "";
     try {
-        var strLength = str.replace(chineseRegex,"**").length;
-        for(var i = 0;i < strLength;i++)
-        {
+        var strLength = str.replace(chineseRegex, "**").length;
+        for (var i = 0; i < strLength; i++) {
             singleChar = str.charAt(i).toString();
-            if(singleChar.match(chineseRegex) != null)
-            {
+            if (singleChar.match(chineseRegex) != null) {
                 newLength += 2;
-            }
-            else
-            {
+            } else {
                 newLength++;
             }
-            if(newLength > len)
-            {
+            if (newLength > len) {
                 break;
             }
             newStr += singleChar;
         }
 
-        if(hasDot && strLength > len)
-        {
+        if (hasDot && strLength > len) {
             newStr += "..";
         }
-    }
-    catch (e) {
-		return str;
+    } catch (e) {
+        return str;
     }
 
-    return newStr;  
+    return newStr;
 },
 
 // //截屏
@@ -705,7 +694,7 @@ GlobalFunc.subStrOfChinese = function (str, len, hasDot) {
 //         if(bHide){
 //             node.active = true
 //         }
-        
+
 //         var rt = cc.RenderTexture.create(doCapSize.width,doCapSize.height)
 //         rt.setVisible(false)
 // 		rt.begin()
@@ -715,7 +704,7 @@ GlobalFunc.subStrOfChinese = function (str, len, hasDot) {
 //         if(bHide){
 //             node.active = false
 //         }
-        
+
 
 // 		rt.saveToFile(fileName,cc.ImageFormat.PNG,true,function(){
 // 			cc.log(jsb.fileUtils.getWritablePath())
@@ -733,102 +722,100 @@ GlobalFunc.subStrOfChinese = function (str, len, hasDot) {
 //fileName: **.png
 //node: 截屏的节点
 //endCall: 截屏完成的回调会传出目标文件路径
-GlobalFunc.captureScreen = function(fileName, node, fn,nScale){
-    let width = Math.floor(node.width);
-    let height = Math.floor(node.height);
-    if (CC_JSB) {
-        let fullPath = jsb.fileUtils.getWritablePath() + fileName;
-        if (jsb.fileUtils.isFileExist(fullPath)) {
-            jsb.fileUtils.removeFile(fullPath);
-        }
-        let cameraNode = new cc.Node();
-        cameraNode.parent = node.parent;
-        cameraNode.zIndex = -1
-        
-        cameraNode.position = node.position;
-        let camera = cameraNode.addComponent(cc.Camera);
-        camera.cullingMask = 0xffffffff;
+    GlobalFunc.captureScreen = function (fileName, node, fn, nScale) {
+        let width = Math.floor(node.width);
+        let height = Math.floor(node.height);
+        if (CC_JSB) {
+            let fullPath = jsb.fileUtils.getWritablePath() + fileName;
+            if (jsb.fileUtils.isFileExist(fullPath)) {
+                jsb.fileUtils.removeFile(fullPath);
+            }
+            let cameraNode = new cc.Node();
+            cameraNode.parent = node.parent;
+            cameraNode.zIndex = -1
 
-        let scale = Math.max(cc.winSize.width/node.width, cc.winSize.height/node.height);
-        if(nScale){
-            scale = nScale
-        }
-        let texture = new cc.RenderTexture();
-        let gl = cc.game._renderContext;
-        texture.initWithSize(width*scale, height*scale, gl.STENCIL_INDEX8);
-        camera.targetTexture = texture;
-        node.scaleY = -1*scale; //-1将截图后默认倒置的图片回正
-        node.scaleX = scale;
-        camera.render(node);
-        node.scale = 1;
+            cameraNode.position = node.position;
+            let camera = cameraNode.addComponent(cc.Camera);
+            camera.cullingMask = 0xffffffff;
 
-        let data = texture.readPixels();
-        // //以下代码将截图后默认倒置的图片回正
-        // let picData = new Uint8Array(width * height * 4);
-        // let rowBytes = width * 4;
-        // for (let row = 0; row < height; row++) {
-        //     let srow = height - 1 - row;
-        //     let start = Math.floor(srow * width * 4);
-        //     let reStart = row * width * 4;
-        //     // save the piexls data
-        //     for (let i = 0; i < rowBytes; i++) {
-        //         picData[reStart + i] = data[start + i];
-        //     }
-        // }
-        //保存图片
-        jsb.saveImageData(data, width*scale, height*scale, fullPath);
-        console.log("截图成功，图片保存在 ====>", fullPath);
-        node.parent.removeChild(cameraNode);
-        if (fn) fn(fullPath);
-    }
-},
+            let scale = Math.max(cc.winSize.width / node.width, cc.winSize.height / node.height);
+            if (nScale) {
+                scale = nScale
+            }
+            let texture = new cc.RenderTexture();
+            let gl = cc.game._renderContext;
+            texture.initWithSize(width * scale, height * scale, gl.STENCIL_INDEX8);
+            camera.targetTexture = texture;
+            node.scaleY = -1 * scale; //-1将截图后默认倒置的图片回正
+            node.scaleX = scale;
+            camera.render(node);
+            node.scale = 1;
+
+            let data = texture.readPixels();
+            // //以下代码将截图后默认倒置的图片回正
+            // let picData = new Uint8Array(width * height * 4);
+            // let rowBytes = width * 4;
+            // for (let row = 0; row < height; row++) {
+            //     let srow = height - 1 - row;
+            //     let start = Math.floor(srow * width * 4);
+            //     let reStart = row * width * 4;
+            //     // save the piexls data
+            //     for (let i = 0; i < rowBytes; i++) {
+            //         picData[reStart + i] = data[start + i];
+            //     }
+            // }
+            //保存图片
+            jsb.saveImageData(data, width * scale, height * scale, fullPath);
+            console.log("截图成功，图片保存在 ====>", fullPath);
+            node.parent.removeChild(cameraNode);
+            if (fn) fn(fullPath);
+        }
+    },
 
 //FB链接分享
 //linkUrl:点击跳转的url
 //strContent:文字内容即引文
-GlobalFunc.ShareLink=function(linkUrl,strContent){
-    //fb
-    if( Global.openFacebookLogin && Global.playerData.logintype === Global.LoginType.FB){
-        var shareData = {}
-        shareData.shareType = 1 //链接分享
-        shareData.linkUrl = linkUrl
-        shareData.content = strContent || ""
-        cc.vv.PlatformApiMgr.SdkShare(JSON.stringify(shareData))
-    }
-    else if(Global.openWeChatLogin ) {
-        //微信
-        var title = 'poly娱乐'
-        var content = '喊你一起玩游戏！'
-        if(strContent && strContent.length > 0){
-            content = strContent
-        }
-        var toScene = Global.WX_SHARE_SCENE.Secssion
-        Global.WXShareLink(linkUrl,title,content,toScene)
-    }
-    else{
-        cc.loader.loadRes("prefab/UIShare", function (err, prefab) {
-            var newNode = cc.instantiate(prefab);
-            var script = newNode.getComponent('UIGuestShare')
-            if(script){
-                script.setQRCodeUrl(linkUrl)
+    GlobalFunc.ShareLink = function (linkUrl, strContent) {
+        //fb
+        if (Global.openFacebookLogin && Global.playerData.logintype === Global.LoginType.FB) {
+            var shareData = {}
+            shareData.shareType = 1 //链接分享
+            shareData.linkUrl = linkUrl
+            shareData.content = strContent || ""
+            cc.vv.PlatformApiMgr.SdkShare(JSON.stringify(shareData))
+        } else if (Global.openWeChatLogin) {
+            //微信
+            var title = 'poly娱乐'
+            var content = '喊你一起玩游戏！'
+            if (strContent && strContent.length > 0) {
+                content = strContent
             }
-            newNode.position = Global.centerPos
-            cc.director.getScene().addChild(newNode);
-        });
-    }
+            var toScene = Global.WX_SHARE_SCENE.Secssion
+            Global.WXShareLink(linkUrl, title, content, toScene)
+        } else {
+            cc.loader.loadRes("prefab/UIShare", function (err, prefab) {
+                var newNode = cc.instantiate(prefab);
+                var script = newNode.getComponent('UIGuestShare')
+                if (script) {
+                    script.setQRCodeUrl(linkUrl)
+                }
+                newNode.position = Global.centerPos
+                cc.director.getScene().addChild(newNode);
+            });
+        }
 
-	
-}
+
+    }
 
 GlobalFunc.shareAppWebLink = function (actionId, valueId) {
     actionId = actionId || '0';
     valueId = valueId || '0';
-    var url_linke = Global.share_url + '?appName=ruili.com&actionId=' + actionId +'&valueId=' + valueId;
+    var url_linke = Global.share_url + '?appName=ruili.com&actionId=' + actionId + '&valueId=' + valueId;
     //添加渠道号
     var strChannal = cc.vv.PlatformApiMgr.umChannel()
-    url_linke  = url_linke + "&channel="  + strChannal
-    Global.ShareLink(url_linke,'');
-    
+    url_linke = url_linke + "&channel=" + strChannal
+    Global.ShareLink(url_linke, '');
+
 }
 //==FB分享end
 
@@ -838,35 +825,35 @@ GlobalFunc.shareAppWebLink = function (actionId, valueId) {
 //content:分享内容
 //toScene:分享场景 Global.WX_SHARE_SCENE
 //shareResultCall:分享结果回调
-GlobalFunc.WXShareLink=function(linkUrl,title,content,toScene,shareResultCall){
-	var iconUrl = Global.webShareIcon
-	if(toScene >= 0 && linkUrl && title && content){
-		cc.vv.WxMgr.wxShareWeb(toScene,title,content,iconUrl,linkUrl,shareResultCall)
-	}
+GlobalFunc.WXShareLink = function (linkUrl, title, content, toScene, shareResultCall) {
+    var iconUrl = Global.webShareIcon
+    if (toScene >= 0 && linkUrl && title && content) {
+        cc.vv.WxMgr.wxShareWeb(toScene, title, content, iconUrl, linkUrl, shareResultCall)
+    }
 }
 
 //WX图片分享
 //imgPath 图片地址
 //toScene: 分享场景
-GlobalFunc.WXShareImage=function(imgPath,toScene,shareResultCall){
-	if(toScene >= 0 && imgPath){
-		cc.vv.WxMgr.wxShareImg(toScene,imgPath,shareResultCall)
-	}
+GlobalFunc.WXShareImage = function (imgPath, toScene, shareResultCall) {
+    if (toScene >= 0 && imgPath) {
+        cc.vv.WxMgr.wxShareImg(toScene, imgPath, shareResultCall)
+    }
 }
 
 //是否开启wss 
 //不带端口的时候，就采用https
 //即当是https的时候，websocket也需要用wss
-GlobalFunc.isUserWSS = function(pUrl){
+GlobalFunc.isUserWSS = function (pUrl) {
     var res = false
     let url = Global.loginServerAddress
-    if(pUrl){
+    if (pUrl) {
         url = pUrl
     }
-	if(url.indexOf(':') === -1){
-		res = true
-	}
-	return res
+    if (url.indexOf(':') === -1) {
+        res = true
+    }
+    return res
 }
 
 // // 获取房间等级显示的文字
@@ -894,57 +881,49 @@ GlobalFunc.getSegmentLevel = function (integral) {
 };
 
 // 注册事件
-GlobalFunc.registerEvent = function(eventName,func,obj)
-{
+GlobalFunc.registerEvent = function (eventName, func, obj) {
     let canvas = cc.find("Canvas");
-    if(cc.isValid(canvas,true)){
-        canvas.on(eventName,func,obj);
+    if (cc.isValid(canvas, true)) {
+        canvas.on(eventName, func, obj);
     }
 }
 
 //注销事件
-GlobalFunc.unregisterEvent = function(eventName,func,obj)
-{
+GlobalFunc.unregisterEvent = function (eventName, func, obj) {
     let canvas = cc.find("Canvas");
-    if(cc.isValid(canvas,true)){
-        canvas.off(eventName,func,obj);
+    if (cc.isValid(canvas, true)) {
+        canvas.off(eventName, func, obj);
     }
 }
 
 // 发送事件
-GlobalFunc.dispatchEvent= function (eventName,data) {
+GlobalFunc.dispatchEvent = function (eventName, data) {
     let canvas = cc.find("Canvas");
     //
     let args = {}
     args.detail = data
-    if(canvas)   canvas.emit(eventName,args);
+    if (canvas) canvas.emit(eventName, args);
 }
 
 // 按钮点击事件
 //soundCfg null 播放默认 有配置则播放配置的。-1表示不播放声音
-GlobalFunc.btnClickEvent = function (btn,func,obj,soundCfg=null) {
-    if(btn == null)
-    {
+GlobalFunc.btnClickEvent = function (btn, func, obj, soundCfg = null) {
+    if (btn == null) {
         return null;
     }
     let temp = func.bind(obj);
 
-    btn.on("click",(event)=>
-    {
-        let btnCmp =  btn.getComponent(cc.Button);
-        if(btnCmp){
-            if(btnCmp.interactable){
-                if(soundCfg === null || soundCfg === undefined)
-                {
+    btn.on("click", (event) => {
+        let btnCmp = btn.getComponent(cc.Button);
+        if (btnCmp) {
+            if (btnCmp.interactable) {
+                if (soundCfg === null || soundCfg === undefined) {
                     // if (Global.poly99 && cc.vv.gameData === null) cc.vv.AudioManager.playEff(cc.vv.PathMgr.SLOT_BASE,"btn_click",true);
                     // else if(Global.appId === Global.APPID.BigBang && cc.vv.gameData === null) Global.playEff(Global.SOUNDS.eff_click);
-                }
-                else if(soundCfg === -1){
+                } else if (soundCfg === -1) {
                     //不播放声音
-                    
-                }
-                else
-                {
+
+                } else {
                     cc.vv.AudioManager.playEff(soundCfg.path, soundCfg.filename, soundCfg.common);
                 }
             }
@@ -955,22 +934,21 @@ GlobalFunc.btnClickEvent = function (btn,func,obj,soundCfg=null) {
 }
 
 // 按钮点击事件, 不需要默认音效版本，如樱桃的爱，伟大的蓝色，func 中 自己单独播放 同一个按键不同的音效
-GlobalFunc.btnClickEventNoDefaultSound = function (btn,func,obj) {
-    if(btn == null)
-    {
+GlobalFunc.btnClickEventNoDefaultSound = function (btn, func, obj) {
+    if (btn == null) {
         return null;
     }
-    btn.on("click",func,obj);
+    btn.on("click", func, obj);
     return btn;
 }
 
 // 数字转换逗号分隔符
-GlobalFunc.FormatNumToComma = function (num){
-    if(!num)return 0;
+GlobalFunc.FormatNumToComma = function (num) {
+    if (!num) return 0;
     num = Number(Number(num).toFixed(2));
-    var res=num.toString().replace(/\d+/, function(n){ // 先提取整数部分
-        return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
-            return $1+",";
+    var res = num.toString().replace(/\d+/, function (n) { // 先提取整数部分
+        return n.replace(/(\d)(?=(\d{3})+$)/g, function ($1) {
+            return $1 + ",";
         });
     })
     return res;
@@ -983,7 +961,7 @@ GlobalFunc.FormatCommaNumToNum = function (numStr) {
 
 
 //保留小数点不足补0
-GlobalFunc.SavePoints = function(num,pt=2){
+GlobalFunc.SavePoints = function (num, pt = 2) {
     //1. 可能是字符串，转换为浮点数
     //2. 乘以100 小数点向右移动两位
     //3. Math.round 进行四舍五入
@@ -994,8 +972,8 @@ GlobalFunc.SavePoints = function(num,pt=2){
     //只有一位（整数）
     if (arrayNum.length == 1) {
         let addstr = "."
-        for(let i = 0; i < pt; i++){
-            addstr +="0"
+        for (let i = 0; i < pt; i++) {
+            addstr += "0"
         }
         return value.toString() + addstr;
     }
@@ -1003,8 +981,8 @@ GlobalFunc.SavePoints = function(num,pt=2){
         //小数点右侧 如果小于两位 则补一个0
         if (arrayNum[1].length < pt) {
             let addstr = ""
-            for(let i = 0; i < pt-arrayNum[1].length; i++){
-                addstr +="0"
+            for (let i = 0; i < pt - arrayNum[1].length; i++) {
+                addstr += "0"
             }
             return value.toString() + addstr;
         }
@@ -1013,11 +991,10 @@ GlobalFunc.SavePoints = function(num,pt=2){
 }
 
 // 查找toggle选中
-GlobalFunc.checkToggleIsSelect = function(toggleParent)
-{
-    for(let i = 0;i<toggleParent.childrenCount;++i){
+GlobalFunc.checkToggleIsSelect = function (toggleParent) {
+    for (let i = 0; i < toggleParent.childrenCount; ++i) {
         let t = toggleParent.children[i].getComponent(cc.Toggle);
-        if(t.isChecked){
+        if (t.isChecked) {
             return t.node;
         }
     }
@@ -1025,53 +1002,49 @@ GlobalFunc.checkToggleIsSelect = function(toggleParent)
 }
 
 // 设置选中的toggle
-GlobalFunc.setToggleSecelct = function(toggleParent,toggleName) {
-    for(let i = 0;i<toggleParent.childrenCount;++i){
+GlobalFunc.setToggleSecelct = function (toggleParent, toggleName) {
+    for (let i = 0; i < toggleParent.childrenCount; ++i) {
 
         let t = toggleParent.children[i].getComponent(cc.Toggle);
-        if(toggleParent.children[i].name == toggleName){
+        if (toggleParent.children[i].name == toggleName) {
 
             t.isChecked = true;
-        }
-        else
-        {
+        } else {
             t.isChecked = false;
         }
     }
 }
 
 //自动适配设备
-GlobalFunc.autoAdaptDevices = function (isShowAll=true) {
+GlobalFunc.autoAdaptDevices = function (isShowAll = true) {
     //
     let testIPad = false
     // if(testIPad || cc.sys.platform == cc.sys.IPAD){ //只有ipad才需要修改
-        var canvasNode = cc.find('Canvas');
-        var canvas = canvasNode.getComponent(cc.Canvas);
-        
-        var frameWidth = canvasNode.width;
-        var frameHeight = canvasNode.height;
-        var designWidth = canvas.designResolution.width;
-        var designHeight = canvas.designResolution.height;
-        if ((frameWidth/frameHeight) < (designWidth/designHeight)) { //按照宽来适配
-            canvas.fitWidth = true;
-            canvas.fitHeight = false;
-        }
-        else { //按照高来适配
-            canvas.fitWidth = false;
-            canvas.fitHeight = true;
-        }
+    var canvasNode = cc.find('Canvas');
+    var canvas = canvasNode.getComponent(cc.Canvas);
+
+    var frameWidth = canvasNode.width;
+    var frameHeight = canvasNode.height;
+    var designWidth = canvas.designResolution.width;
+    var designHeight = canvas.designResolution.height;
+    if ((frameWidth / frameHeight) < (designWidth / designHeight)) { //按照宽来适配
+        canvas.fitWidth = true;
+        canvas.fitHeight = false;
+    } else { //按照高来适配
+        canvas.fitWidth = false;
+        canvas.fitHeight = true;
+    }
     // }
 }
 
 // 适配iphoneX
-GlobalFunc.setAdaptIphoneX = function()
-{
+GlobalFunc.setAdaptIphoneX = function () {
     var nameStr = 'safe_node';
     var canvas = cc.find("Canvas").getComponent(cc.Canvas);
     let safe_node = canvas.node.getChildByName(nameStr);
-    if(safe_node) {
+    if (safe_node) {
         let widget = safe_node.getComponent(cc.Widget);
-        if(widget){
+        if (widget) {
             widget.top = 0;
             widget.bottom = 0;
             widget.left = 0;
@@ -1081,12 +1054,12 @@ GlobalFunc.setAdaptIphoneX = function()
 
 }
 
-GlobalFunc.getStrBLen = function(str) {
+GlobalFunc.getStrBLen = function (str) {
     if (str == null) return 0;
-    if (typeof str != "string"){
+    if (typeof str != "string") {
         str += "";
     }
-    return str.replace(/[^\x00-\xff]/g,"ab").length;
+    return str.replace(/[^\x00-\xff]/g, "ab").length;
 }
 
 /*
@@ -1113,33 +1086,32 @@ GlobalFunc.checkIpAndGps = function (playersList, toPlayer) {
 
     if (!toPlayer) {
         //先检测是否IP相同
-        for (var i=0; i < playersList.length - 1; i++) {
+        for (var i = 0; i < playersList.length - 1; i++) {
             if (!playersList[i]) continue;
-            for (var j=i+1; j < playersList.length; j++) {
+            for (var j = i + 1; j < playersList.length; j++) {
                 if (!playersList[j]) continue;
                 if (isSameIp(playersList[i], playersList[j])) return true;
             }
         }
 
         //再检测GPS是否过近
-        for (var i=0; i < playersList.length - 1; i++) {
+        for (var i = 0; i < playersList.length - 1; i++) {
             if (!playersList[i]) continue;
-            for (var j=i+1; j < playersList.length; j++) {
+            for (var j = i + 1; j < playersList.length; j++) {
                 if (!playersList[j]) continue;
                 if (isNearlyDistance(playersList[i], playersList[j])) return true;
             }
         }
-    }
-    else {
+    } else {
         //先检测是否IP相同
-        for (var i=0; i < playersList.length; i++) {
+        for (var i = 0; i < playersList.length; i++) {
             if (!playersList[i]) continue;
             if (playersList[i].uid == toPlayer.uid) continue;
             if (isSameIp(playersList[i], toPlayer)) return true;
         }
 
         //再检测GPS是否过近
-        for (var i=0; i < playersList.length; i++) {
+        for (var i = 0; i < playersList.length; i++) {
             if (!playersList[i]) continue;
             if (playersList[i].uid == toPlayer.uid) continue;
             if (isNearlyDistance(playersList[i], toPlayer)) return true;
@@ -1151,83 +1123,69 @@ GlobalFunc.checkIpAndGps = function (playersList, toPlayer) {
 //urlData:数据链接
 //node:显示二维码预制节点
 //bShowIcon:是否显示游戏icon
-GlobalFunc.showQRCode = function(urlData,node,bShowIcon){
-    if(node){
+GlobalFunc.showQRCode = function (urlData, node, bShowIcon) {
+    if (node) {
         var script = node.getComponent('showQRcode')
-        if(script){
-            script.showQRCode(urlData,bShowIcon)
+        if (script) {
+            script.showQRCode(urlData, bShowIcon)
         }
     }
-    
+
 }
 
-GlobalFunc.moveMenu = function(isDown,meunNode) // 移动菜单栏
+GlobalFunc.moveMenu = function (isDown, meunNode) // 移动菜单栏
 {
     meunNode.getComponent(cc.Button).interactable = false;
-    let startPos = isDown? cc.v2(0,meunNode.height):cc.v2(0,0);
-    let endPos = isDown? cc.v2(0,0):cc.v2(0,meunNode.height);
+    let startPos = isDown ? cc.v2(0, meunNode.height) : cc.v2(0, 0);
+    let endPos = isDown ? cc.v2(0, 0) : cc.v2(0, meunNode.height);
     meunNode.position = startPos;
-    meunNode.opacity = isDown ? 0:255;
+    meunNode.opacity = isDown ? 0 : 255;
     meunNode.active = true;
     let delaytime = 0.3;
-    meunNode.runAction(cc.sequence(cc.spawn(cc.moveTo(delaytime,endPos),cc.fadeTo(delaytime,isDown?255:0)),cc.callFunc(()=>
-    {
+    meunNode.runAction(cc.sequence(cc.spawn(cc.moveTo(delaytime, endPos), cc.fadeTo(delaytime, isDown ? 255 : 0)), cc.callFunc(() => {
         meunNode.getComponent(cc.Button).interactable = true;
     })));
 }
 
 // 弹出动画显示
-GlobalFunc.showAlertAction = function(node,isShow,startScale,endScale,callback)
-{
+GlobalFunc.showAlertAction = function (node, isShow, startScale, endScale, callback) {
     let start_Scale = startScale;
     let end_Scale = endScale;
-    if(isShow)
-    {
-        node.opacity = 0.3*255
-        if(start_Scale == null)
-        {
+    if (isShow) {
+        node.opacity = 0.3 * 255
+        if (start_Scale == null) {
             node.scale = 0;
-        }else {
+        } else {
             node.scale = start_Scale;
         }
 
-        if(end_Scale == null)
-        {
+        if (end_Scale == null) {
             end_Scale = 1;
         }
-    }
-    else
-    {
-        if(start_Scale == null)
-        {
+    } else {
+        if (start_Scale == null) {
             node.scale = 1;
         }
 
-        if(end_Scale == null)
-        {
+        if (end_Scale == null) {
             end_Scale = 0;
         }
     }
     let action
-    if(isShow)
-    {
-        let action1 = cc.scaleTo(0.35,end_Scale);
+    if (isShow) {
+        let action1 = cc.scaleTo(0.35, end_Scale);
         action1.easing(cc.easeBackOut(2));
 
-        let action2 = cc.fadeTo(0.35,255)
+        let action2 = cc.fadeTo(0.35, 255)
         // action2.easing(cc.easeBackOut(2));
-        action = cc.spawn(action1,action2)
-    }
-    else
-    {
-        action = cc.scaleTo(0.3,end_Scale);
+        action = cc.spawn(action1, action2)
+    } else {
+        action = cc.scaleTo(0.3, end_Scale);
         action.easing(cc.easeSineIn(3));
     }
 
-    node.runAction(cc.sequence(action,cc.callFunc(function()
-    {
-        if(callback)
-        {
+    node.runAction(cc.sequence(action, cc.callFunc(function () {
+        if (callback) {
             callback();
         }
 
@@ -1244,87 +1202,84 @@ GlobalFunc.showAlertAction = function(node,isShow,startScale,endScale,callback)
 //strConn前缀和数字之间的连接字符可空
 //beginDif:开始图片的起始下标，默认1开始
 //return: 返回的节点需要自己删除
-GlobalFunc.createrSpriteAni=function(atlas,preSufix,nNum,speed,bLoop,endCall,strConn,beginDif,addZero){
+GlobalFunc.createrSpriteAni = function (atlas, preSufix, nNum, speed, bLoop, endCall, strConn, beginDif, addZero) {
     var self = this
     //创建一个空节点
     var newNode = new cc.Node('node_eff')
     var sp = newNode.addComponent(cc.Sprite)
 
-    self.addSpriteAni(newNode,atlas,preSufix,nNum,speed,bLoop,endCall,strConn,beginDif,addZero)
-    
+    self.addSpriteAni(newNode, atlas, preSufix, nNum, speed, bLoop, endCall, strConn, beginDif, addZero)
+
     return newNode
 }
 
 //给节点添加帧动画组件
-GlobalFunc.addSpriteAni=function(newNode,atlas,preSufix,nNum,speed,bLoop,endCall,strConn,beginDif,addZero){
+GlobalFunc.addSpriteAni = function (newNode, atlas, preSufix, nNum, speed, bLoop, endCall, strConn, beginDif, addZero) {
     var self = this
-    if(!beginDif) beginDif = 1
-    if(addZero == null ){
+    if (!beginDif) beginDif = 1
+    if (addZero == null) {
         addZero = true
     }
     // 是否需要补零
-    var getZeroize=function(num,isZeroize)
-    {
-        if(isZeroize)
-        {
-            let str = num<10?("0"+num):num;
+    var getZeroize = function (num, isZeroize) {
+        if (isZeroize) {
+            let str = num < 10 ? ("0" + num) : num;
             return str;
-        }
-        else{
+        } else {
             return num;
         }
 
     }
 
     var lists = []
-    for(var i = 0;i < nNum; i++){
-        var key = preSufix + getZeroize(i+beginDif,addZero)
-        if(strConn){
-            key = preSufix + strConn + getZeroize(i+beginDif,addZero)
+    for (var i = 0; i < nNum; i++) {
+        var key = preSufix + getZeroize(i + beginDif, addZero)
+        if (strConn) {
+            key = preSufix + strConn + getZeroize(i + beginDif, addZero)
         }
-        
-        if(atlas._spriteFrames[key]){
+
+        if (atlas._spriteFrames[key]) {
             lists.push(atlas._spriteFrames[key])
         }
-        
+
     }
-    
+
     var ani = newNode.addComponent(cc.Animation)
-    var clip = cc.AnimationClip.createWithSpriteFrames(lists,30)
+    var clip = cc.AnimationClip.createWithSpriteFrames(lists, 30)
     let finishEvent = 'finished'
-    if(bLoop){
+    if (bLoop) {
         clip.wrapMode = cc.WrapMode.Loop
         finishEvent = 'lastframe'
     }
-    
+
     clip.speed = speed
-    ani.addClip(clip,preSufix)
-    var finishCall = function(){
-        ani.off(finishEvent,finishCall)
-        if(endCall){
-           endCall()
+    ani.addClip(clip, preSufix)
+    var finishCall = function () {
+        ani.off(finishEvent, finishCall)
+        if (endCall) {
+            endCall()
         }
     }
-    ani.on(finishEvent,finishCall) //不循环的
+    ani.on(finishEvent, finishCall) //不循环的
     ani.play(preSufix)
 }
 
 //空对象判断
-GlobalFunc.isEmptyObject = function(obj) {   
-    for (var key in obj){
-    　　return false;
-    }　　
+GlobalFunc.isEmptyObject = function (obj) {
+    for (var key in obj) {
+        return false;
+    }
     return true;
 }
 
 
 //获取设备信息
 //用于后台上报
-GlobalFunc.getDeviceInfo = function(){
-    let info = {osValue:'web'}
-    if(cc.sys.isNative){
+GlobalFunc.getDeviceInfo = function () {
+    let info = {osValue: 'web'}
+    if (cc.sys.isNative) {
         //分辨率
-        info.frameSize  = cc.view.getFrameSize()
+        info.frameSize = cc.view.getFrameSize()
         //系统:ios android
         info.osValue = cc.sys.os
         //手机型号 android:手机品牌_手机型号(小米_xiaomi)  ios:iphne6_ios12
@@ -1333,7 +1288,7 @@ GlobalFunc.getDeviceInfo = function(){
         info.phoneSystemVision = cc.vv.PlatformApiMgr.getDeviceOpSysVision()
         //手机唯一识别码
         info.phoneUuid = this.getDeviceId()
-        
+
         //网络：0未知，1Wi-Fi，2移动网络
         info.netType = cc.sys.getNetworkType()
 
@@ -1343,10 +1298,10 @@ GlobalFunc.getDeviceInfo = function(){
 
 //对节点缩放适配
 //node cc.Node 类型
-Global.setNodeScaleFixWin=function(node){
+Global.setNodeScaleFixWin = function (node) {
     var winSize = cc.winSize
-    node.scaleX = winSize.width/node.width
-    node.scaleY = winSize.height/node.height
+    node.scaleX = winSize.width / node.width
+    node.scaleY = winSize.height / node.height
 }
 
 //对节点缩放适配, 节点的width和height，可以不是 设计分辨率
@@ -1357,17 +1312,17 @@ Global.setNodeScaleWithDesignSize = function (node) {
 }
 
 //节点摇晃动作
-Global.shakeNodeR = function(node){
+Global.shakeNodeR = function (node) {
     node.stopAllActions();
     node.angle = 0;
-    
+
     let r_offset = 15;
     let t_interval = 0.25;
     let r1 = cc.rotateTo(t_interval, r_offset)
-    let r2 = cc.rotateTo(2 * t_interval, -  r_offset)
-    let r3 = cc.rotateTo(2 * t_interval,  r_offset)
-    let r4 = cc.rotateTo(2 * t_interval, - r_offset)
-    let r5 = cc.rotateTo(2 * t_interval,  r_offset)
+    let r2 = cc.rotateTo(2 * t_interval, -r_offset)
+    let r3 = cc.rotateTo(2 * t_interval, r_offset)
+    let r4 = cc.rotateTo(2 * t_interval, -r_offset)
+    let r5 = cc.rotateTo(2 * t_interval, r_offset)
     let r6 = cc.rotateTo(t_interval, 0)
     let delay = cc.delayTime(1.8);
 
@@ -1376,63 +1331,56 @@ Global.shakeNodeR = function(node){
 }
 
 //节点呼吸动作
-Global.breathNode = function(node, _targetScale, _targetScaleSmall){
+Global.breathNode = function (node, _targetScale, _targetScaleSmall) {
     node.stopAllActions();
     node.scale = _targetScale || 1;
     let targetScale = _targetScale || 1.1
-    
+
     let targetScaleSmall = _targetScaleSmall || 1
 
-    let seq = cc.repeatForever(cc.sequence(cc.scaleTo(0.6,targetScale),cc.scaleTo(0.6,targetScaleSmall)));
+    let seq = cc.repeatForever(cc.sequence(cc.scaleTo(0.6, targetScale), cc.scaleTo(0.6, targetScaleSmall)));
     node.runAction(seq);
 }
 
 //闪烁动作
-Global.blinkAction = function(node,actionTime=0.2,delayTime=2,nBlinkCount=0,endCall){
+Global.blinkAction = function (node, actionTime = 0.2, delayTime = 2, nBlinkCount = 0, endCall) {
     node.stopAllActions();
     node.opacity = 255
-    if(nBlinkCount){
+    if (nBlinkCount) {
         cc.tween(node)
-        .repeat(nBlinkCount,
-            cc.tween()
-            .to(actionTime,{opacity:0})
-            .delay(0.1)
-            .to(actionTime,{opacity:255})
-            .delay(delayTime)
-    
-        )
-        .call(()=>{
-            if(endCall) endCall()
-        })
-        .start()
-    }
-    else{
+            .repeat(nBlinkCount, cc.tween()
+                .to(actionTime, {opacity: 0})
+                .delay(0.1)
+                .to(actionTime, {opacity: 255})
+                .delay(delayTime))
+            .call(() => {
+                if (endCall) endCall()
+            })
+            .start()
+    } else {
         cc.tween(node)
-        .repeatForever(
-            cc.tween()
-            .to(actionTime,{opacity:0})
-            .delay(0.1)
-            .to(actionTime,{opacity:255})
-            .delay(delayTime)
-    
-        )
-        .start()
+            .repeatForever(cc.tween()
+                .to(actionTime, {opacity: 0})
+                .delay(0.1)
+                .to(actionTime, {opacity: 255})
+                .delay(delayTime))
+            .start()
     }
-    
+
 },
 
 // 剔除重复元素
-Global.unique5 = function(arr){
-    var x = new Set(arr);
-    return [...x];
-}
+    Global.unique5 = function (arr) {
+        var x = new Set(arr);
+        return [...x];
+    }
 
 //节点摇晃效果
 //@param node: 要摇晃的节点
 //@param offset 摇晃的幅度(默认16)
 //@param time: 摇晃的时间(默认1s)
 //@param originPos: 摇晃结束后回到的位置
-Global.shakeNode = function(node, offset, time, originPos) {
+Global.shakeNode = function (node, offset, time, originPos) {
     offset = offset || 16;
     time = time || 1.0;
     let duration = 0.04;
@@ -1450,7 +1398,7 @@ Global.shakeNode = function(node, offset, time, originPos) {
     let moveDown = cc.moveBy(duration, cc.v2(0, -offset));
     let moveDReset = cc.moveBy(duration, cc.v2(0, offset));
     let verSeq = cc.sequence(moveUp, moveUReset, moveDown, moveDReset);
-    node.runAction(cc.sequence(cc.scaleTo(duration,originScale+0.025), cc.repeat(cc.spawn(horSeq, verSeq), times), cc.scaleTo(duration,originScale), cc.callFunc(()=>{
+    node.runAction(cc.sequence(cc.scaleTo(duration, originScale + 0.025), cc.repeat(cc.spawn(horSeq, verSeq), times), cc.scaleTo(duration, originScale), cc.callFunc(() => {
         if (originPos) {
             node.setPosition(originPos);
         }
@@ -1458,54 +1406,52 @@ Global.shakeNode = function(node, offset, time, originPos) {
 }
 
 //节点的箭头动作
-Global.ArrowAction = function(obj,moveVal,nDur){
+Global.ArrowAction = function (obj, moveVal, nDur) {
     let orgPos = obj.position
     obj.stopAllActions()
     cc.tween(obj)
-    .repeatForever(
-        cc.tween()
-        .to(nDur,{x:orgPos.x+moveVal.x,y:orgPos.y+moveVal.y})
-        .to(nDur,{x:orgPos.x,y:orgPos.y})
-    )
-    .start()
+        .repeatForever(cc.tween()
+            .to(nDur, {x: orgPos.x + moveVal.x, y: orgPos.y + moveVal.y})
+            .to(nDur, {x: orgPos.x, y: orgPos.y}))
+        .start()
 }
 
 //将秒钟格式成：*:*:*
 //nVal 秒
-Global.formatSec = function(nVal,fmt,bShowDay){
-    if(!fmt) fmt = '%s:%s:%s';
+Global.formatSec = function (nVal, fmt, bShowDay) {
+    if (!fmt) fmt = '%s:%s:%s';
 
-    let day = Math.floor(nVal/(24*3600))
-    if(!bShowDay){
+    let day = Math.floor(nVal / (24 * 3600))
+    if (!bShowDay) {
         day = 0
     }
-    let min = Math.floor((nVal-day*24*3600)%3600);
-    let nHour = Math.floor((nVal-day*24*3600)/3600);
-    let nMin = Math.floor(min/60);
-    let nSec = min%60;
-    let strShow = cc.js.formatStr(fmt,Global.PrefixInteger(nHour,2),Global.PrefixInteger(nMin,2),Global.PrefixInteger(nSec,2))
-    if(day>0){ //天数超过1，则显示成天的前缀
+    let min = Math.floor((nVal - day * 24 * 3600) % 3600);
+    let nHour = Math.floor((nVal - day * 24 * 3600) / 3600);
+    let nMin = Math.floor(min / 60);
+    let nSec = min % 60;
+    let strShow = cc.js.formatStr(fmt, Global.PrefixInteger(nHour, 2), Global.PrefixInteger(nMin, 2), Global.PrefixInteger(nSec, 2))
+    if (day > 0) { //天数超过1，则显示成天的前缀
 
-        strShow = day + (day>1?' days':' day')
+        strShow = day + (day > 1 ? ' days' : ' day')
     }
     return strShow
 }
 
 //将秒格式化时间差
-Global.formatTimeDiff = function(nVal){
-    let day = Math.floor(nVal/(24*3600))
-    if(day > 0){
-        return  (day + ((day==1)?" Day":" Days"))
+Global.formatTimeDiff = function (nVal) {
+    let day = Math.floor(nVal / (24 * 3600))
+    if (day > 0) {
+        return (day + ((day == 1) ? " Day" : " Days"))
     }
-    let nHour = Math.floor((nVal-day*24*3600)/3600);
-    if(nHour>0){
-        return  (nHour + ((nHour==1)?" Hour":" Hours"))
+    let nHour = Math.floor((nVal - day * 24 * 3600) / 3600);
+    if (nHour > 0) {
+        return (nHour + ((nHour == 1) ? " Hour" : " Hours"))
     }
-    let min = Math.floor((nVal-day*24*3600)%3600);
-    
-    let nMin = Math.floor(min/60);
-    if(nMin>0){
-        return  (nMin + ((nMin==1)?" Min":" Min"))
+    let min = Math.floor((nVal - day * 24 * 3600) % 3600);
+
+    let nMin = Math.floor(min / 60);
+    if (nMin > 0) {
+        return (nMin + ((nMin == 1) ? " Min" : " Min"))
     }
     return "1 Min"
 
@@ -1513,39 +1459,38 @@ Global.formatTimeDiff = function(nVal){
 
 //将秒钟格式成：*:*:*
 //nVal 秒
-Global.format2Time = function(nVal){
-    let fmt = '%s:%s';
+    Global.format2Time = function (nVal) {
+        let fmt = '%s:%s';
 
-    let min = Math.floor(nVal%3600);
-    let nHour = Math.floor(nVal/3600);
-    let nMin = Math.floor(min/60);
-    let nSec = min%60;
-    if (nHour > 0) {
-        return cc.js.formatStr(fmt,Global.PrefixInteger(nHour,2),Global.PrefixInteger(nMin,2))
+        let min = Math.floor(nVal % 3600);
+        let nHour = Math.floor(nVal / 3600);
+        let nMin = Math.floor(min / 60);
+        let nSec = min % 60;
+        if (nHour > 0) {
+            return cc.js.formatStr(fmt, Global.PrefixInteger(nHour, 2), Global.PrefixInteger(nMin, 2))
+        } else {
+            return cc.js.formatStr(fmt, Global.PrefixInteger(nMin, 2), Global.PrefixInteger(nSec, 2))
+        }
     }
-    else {
-        return cc.js.formatStr(fmt,Global.PrefixInteger(nMin,2),Global.PrefixInteger(nSec,2))
-    }
-}
 
 //传入8，需要的字符长度为3，调用方法后字符串结果为：008
-Global.PrefixInteger = function(num,m){
+Global.PrefixInteger = function (num, m) {
     return (Array(m).join(0) + num).slice(-m);
 }
 
 //数字转换为金钱格式
 //传入1234，返回1,234
-Global.formatMoney = function(numb) {
+Global.formatMoney = function (numb) {
     let str = numb.toString();
     let format = str.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     return format;
 }
 
 // 获取时间字符串 
-Global.getTimeStr = function(time, bIsShowHM, jointStr = ' '){
-    var date = new Date(time*1000)
+Global.getTimeStr = function (time, bIsShowHM, jointStr = ' ') {
+    var date = new Date(time * 1000)
     var year = date.getFullYear();
-    var month = date.getMonth()+1;
+    var month = date.getMonth() + 1;
     //if (10 > month) {
     //    month = '0' + month
     //}
@@ -1566,23 +1511,22 @@ Global.getTimeStr = function(time, bIsShowHM, jointStr = ' '){
         seconds = '0' + seconds
     }
     if (bIsShowHM) {
-        return hour+':'+minutes+':'+seconds
+        return hour + ':' + minutes + ':' + seconds
     } else {
-        if(Global.language == 'en'){
-            return day+'/'+month+'/'+year + jointStr+hour+':'+minutes+':'+seconds
+        if (Global.language == 'en') {
+            return day + '/' + month + '/' + year + jointStr + hour + ':' + minutes + ':' + seconds
+        } else {
+            return month + '/' + day + '/' + year + jointStr + hour + ':' + minutes + ':' + seconds
         }
-        else{
-            return month+'/'+day+'/'+year + jointStr+hour+':'+minutes+':'+seconds
-        }
-        
+
     }
 }
 
 // 09-26 14:50
-Global.getSimpleTimeStr = function(time){
-    var date = new Date(time*1000)
-    
-    var month = date.getMonth()+1;
+Global.getSimpleTimeStr = function (time) {
+    var date = new Date(time * 1000)
+
+    var month = date.getMonth() + 1;
     if (10 > month) {
         month = '0' + month
     }
@@ -1599,35 +1543,34 @@ Global.getSimpleTimeStr = function(time){
     if (10 > minutes) {
         minutes = '0' + minutes
     }
-    return month+"-"+day+ " "+hour+":"+minutes
-    
+    return month + "-" + day + " " + hour + ":" + minutes
+
 },
 
 //2022-09-06
-Global.getFullDateStr = function(time){
-    var date = new Date(time*1000)
-    var year = date.getFullYear();
-    var month = date.getMonth()+1;
-    if (10 > month) {
-        month = '0' + month
+    Global.getFullDateStr = function (time) {
+        var date = new Date(time * 1000)
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        if (10 > month) {
+            month = '0' + month
+        }
+        var day = date.getDate();
+        if (10 > day) {
+            day = '0' + day
+        }
+        if (Global.language == 'en') {
+            return day + "-" + month + '-' + year
+        } else {
+            return year + "-" + month + '-' + day
+        }
+
     }
-    var day = date.getDate();
-    if (10 > day) {
-        day = '0' + day
-    }
-    if(Global.language == 'en'){
-        return  day +"-" + month +'-'+year
-    }
-    else{
-        return  year +"-" + month +'-'+day
-    }
-    
-}
 
 // 06/09
-Global.getDateStrNoYear = function(time){
-    var date = new Date(time*1000);
-    var month = date.getMonth()+1;
+Global.getDateStrNoYear = function (time) {
+    var date = new Date(time * 1000);
+    var month = date.getMonth() + 1;
     if (10 > month) {
         month = '0' + month
     }
@@ -1641,10 +1584,10 @@ Global.getDateStrNoYear = function(time){
 
 
 // 获取日期 
-Global.getDateStr = function(time){
-    var date = new Date(time*1000)
+Global.getDateStr = function (time) {
+    var date = new Date(time * 1000)
     var year = date.getFullYear();
-    var month = date.getMonth()+1;
+    var month = date.getMonth() + 1;
     // if (10 > month) {
     //     month = '0' + month
     // }
@@ -1652,62 +1595,62 @@ Global.getDateStr = function(time){
     if (10 > day) {
         day = '0' + day
     }
-    
-    return month+'-'+day
-    
-    
+
+    return month + '-' + day
+
+
 }
 
-Global.setLabelString = function(route, node, str) {
+Global.setLabelString = function (route, node, str) {
     let label = cc.find(route, node)
     if (label) {
         label.getComponent(cc.Label).string = str
     }
 }
 
-Global.setRichTextString = function(route, node, str) {
+Global.setRichTextString = function (route, node, str) {
     let label = cc.find(route, node)
     if (label) {
         label.getComponent(cc.RichText).string = str
     }
 }
 
-Global.setSpriteFrame = function(route, node, spr) {
+Global.setSpriteFrame = function (route, node, spr) {
     let sprite = cc.find(route, node)
     if (sprite) {
         sprite.getComponent(cc.Sprite).spriteFrame = spr
     }
 }
 
-Global.setProgress = function(route, node, progress) {
+Global.setProgress = function (route, node, progress) {
     let progressBar = cc.find(route, node)
     if (progressBar) {
         progressBar.getComponent(cc.ProgressBar).progress = progress
     }
 }
 
-Global.onClick = function(route, node, callback, target) {
+Global.onClick = function (route, node, callback, target) {
     let button = cc.find(route, node)
     if (button) {
         button.on('click', callback, target)
     }
 }
 
-Global.delayInteractable= function(node, dt=0.5) {
+Global.delayInteractable = function (node, dt = 0.5) {
     let button = node.getComponent(cc.Button)
     if (button) {
         button.interactable = false
-        node.runAction(cc.sequence(cc.delayTime(dt), cc.callFunc(()=>{
+        node.runAction(cc.sequence(cc.delayTime(dt), cc.callFunc(() => {
             button.interactable = true
         })))
-    }   
+    }
 }
 
-Global.awaitTime = function(component, time) {
-    return new Promise((sucess, failed)=>{
-        component.scheduleOnce(()=>{
+Global.awaitTime = function (component, time) {
+    return new Promise((sucess, failed) => {
+        component.scheduleOnce(() => {
             sucess()
-        },time)
+        }, time)
     })
 }
 
@@ -1717,7 +1660,7 @@ Global.awaitTime = function(component, time) {
     调用方式:formatString("api/values/{id}/{name}",{id:101,name:"test"});
              formatString("api/values/{0}/{1}",101,"test");
 */
-Global.formatString = function(str, data) {
+Global.formatString = function (str, data) {
     if (!str || data == undefined) {
         return str
     }
@@ -1728,9 +1671,8 @@ Global.formatString = function(str, data) {
             }
         }
     } else {
-        var args = arguments,
-            reg = new RegExp("\{([0-" + (args.length - 1) + "])\}", "g")
-        return str.replace(reg, function(match, index) {
+        var args = arguments, reg = new RegExp("\{([0-" + (args.length - 1) + "])\}", "g")
+        return str.replace(reg, function (match, index) {
             return args[index - (-1)]
         });
     }

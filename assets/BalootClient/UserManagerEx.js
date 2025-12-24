@@ -290,7 +290,7 @@ cc.Class({
             this.account = playerData.account;
             this.logincoin = playerData.logincoin;
             this.switch = playerData.switch || [];
-            this.logintype = playerData.logintype; //登录方式：游客/微信/fb/账号
+            this.logintype = playerData.logintype; //登录方式：游客/微信/fb/账号/api
             this.isbindfb = playerData.isbindfb || 0;
             this.isbindapple = playerData.isbindapple || 0;
             this.isbindgoogle = playerData.isbindgoogle || 0;

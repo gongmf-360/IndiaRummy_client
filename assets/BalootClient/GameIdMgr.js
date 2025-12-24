@@ -241,24 +241,25 @@ let GAME_ID = {
     BAIJIALE: 201, // 百家乐初级场
     BAIJIALE_MID: 221, // 百家乐中级场
     BAIJIALE_HIGH: 218, // 百家乐高级场
-    // HWFISH: 24, // 海王捕鱼
-    // FISHJOY_WKNH: 25, // 悟空闹海
-    // FISHJOY_JCBY: 26, // 金蟾捕鱼
-    // FISHJOY_LKBY: 27, // 李逵捕鱼
-    // YQSFISH: 28, // 摇钱树捕鱼
-    // FISHSTAR_DSBY: 29, // 大圣捕鱼
-    // FISHSTAR_LKPY: 30, // 李逵劈鱼
-    // FISHSTAR_BYZX: 31, // 捕鱼之星
-    // HWFISH_918: 32, // 海王捕鱼918
-    // BIRDSFISH: 33, // 鸟王争霸
-    // RAIDENFISH: 34, // 雷电捕鱼
-    // SPONGEBOB: 35, // 海绵宝宝
-    // FISHSTAR_DSBY_WP: 36, // 大圣捕鱼万炮房
-    // FISHSTAR_LKPY_WP: 37, // 李逵劈鱼万炮房
-    // FISHSTAR_BYZX_WP: 38, // 捕鱼之星万炮房
-    // HWFISH_918_WP: 39, // 海王捕鱼918万炮房
-    // INSECTSFISH: 40, // 虫虫捕鱼
-    // NEPTUNEFISH: 41, // 渔人码头（海王星）
+
+    HWFISH: 24, // 海王捕鱼
+    FISHJOY_WKNH: 25, // 悟空闹海
+    FISHJOY_JCBY: 26, // 金蟾捕鱼
+    FISHJOY_LKBY: 27, // 李逵捕鱼
+    YQSFISH: 28, // 摇钱树捕鱼
+    FISHSTAR_DSBY: 29, // 大圣捕鱼
+    FISHSTAR_LKPY: 30, // 李逵劈鱼
+    FISHSTAR_BYZX: 31, // 捕鱼之星
+    HWFISH_918: 32, // 海王捕鱼918
+    BIRDSFISH: 33, // 鸟王争霸
+    RAIDENFISH: 34, // 雷电捕鱼
+    SPONGEBOB: 35, // 海绵宝宝
+    FISHSTAR_DSBY_WP: 36, // 大圣捕鱼万炮房
+    FISHSTAR_LKPY_WP: 37, // 李逵劈鱼万炮房
+    FISHSTAR_BYZX_WP: 38, // 捕鱼之星万炮房
+    HWFISH_918_WP: 39, // 海王捕鱼918万炮房
+    INSECTSFISH: 40, // 虫虫捕鱼
+    NEPTUNEFISH: 41, // 渔人码头（海王星）
 
     // ROULETTE: 209, // 俄罗斯轮盘初级场
     ROULETTE_MID: 219, // 俄罗斯轮盘中级场
