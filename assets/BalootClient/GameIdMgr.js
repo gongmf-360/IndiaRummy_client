@@ -243,14 +243,15 @@ let GAME_ID = {
     BAIJIALE_HIGH: 218, // 百家乐高级场
 
     HWFISH: 24, // 海王捕鱼
-    FISHJOY_WKNH: 25, // 悟空闹海
+    // FISHJOY_WKNH: 25, // 悟空闹海
     FISHJOY_JCBY: 26, // 金蟾捕鱼
     FISHJOY_LKBY: 27, // 李逵捕鱼
     YQSFISH: 28, // 摇钱树捕鱼
     FISHSTAR_DSBY: 29, // 大圣捕鱼
     FISHSTAR_LKPY: 30, // 李逵劈鱼
-    FISHSTAR_BYZX: 31, // 捕鱼之星
-    HWFISH_918: 32, // 海王捕鱼918
+    // FISHSTAR_BYZX: 31, // 捕鱼之星
+    // HWFISH_918: 32, // 海王捕鱼918
+    HWFISH_918: 82, // 海王捕鱼918
     BIRDSFISH: 33, // 鸟王争霸
     RAIDENFISH: 34, // 雷电捕鱼
     SPONGEBOB: 35, // 海绵宝宝

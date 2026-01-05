@@ -35,7 +35,6 @@ cc.Class({
         cc.vv.NetManager.registerMsg(MsgId.GAME_CONFIG || MsgId.LOGIN_USERID, this.onRcvMsgLoginUserId, this,true);
         //用户重新登录节点服
         cc.vv.NetManager.registerMsg(MsgId.GAME_CONFIG || MsgId.LOGIN_USERID, this.onRcvMsgLoginUserId, this,true);
-
         //创建房间
         cc.vv.NetManager.registerMsg(MsgId.GAME_CREATEROOM, this.onEnterGame, this,true);
         //加入房间

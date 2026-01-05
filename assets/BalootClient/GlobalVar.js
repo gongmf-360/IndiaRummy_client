@@ -6,10 +6,35 @@ let ServerList = {
     1: "192.168.1.57",            // slot
     2: "192.168.1.57",            // machen
     3: "192.168.1.57",            // liyi
-    4: "xyule.cyou",            // release
+    4: "192.168.1.57",            // release
     5: "192.168.1.57",            // test
     6: "192.168.1.57",            // haoran
 };
+// let ServerList = {
+//     1: "xyule.cyou",            // slot
+//     2: "xyule.cyou",            // machen
+//     3: "xyule.cyou",            // liyi
+//     4: "xyule.cyou",            // release
+//     5: "xyule.cyou",            // test
+//     6: "xyule.cyou",            // haoran
+// };
+// let ServerList = {
+//     1: "192.168.1.57",            // slot
+//     2: "192.168.1.57",            // machen
+//     3: "192.168.1.57",            // liyi
+//     4: "xyule.cyou",            // release
+//     5: "192.168.1.57",            // test
+//     6: "192.168.1.57",            // haoran
+// };
+
+// let ServerList = {
+//     1: "xyule.cyou",            // slot
+//     2: "xyule.cyou",            // machen
+//     3: "xyule.cyou",            // liyi
+//     4: "xyule.cyou",            // release
+//     5: "xyule.cyou",            // test
+//     6: "xyule.cyou",            // haoran
+// };
 
 var GlobalVar = cc.Class({
     extends: cc.Component,

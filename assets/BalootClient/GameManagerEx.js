@@ -109,9 +109,36 @@ cc.Class({
         // 登录成功
         async onRcvMsgLoginUserId(msgDic) {
             Global.gameClickHeaderCoin = false;
+            console.log("协议2返回消息EX：：：：", msgDic);
             if (msgDic.code === 200) {
+                
+                var _this = this;
+                let tokenStr = this.getQueryVariable("token");
+                let gameids = this.getQueryVariable("gameid");
+                console.log("token登录测试点--2323协议2--",tokenStr,gameids);
+                if (tokenStr && gameids) {
+                    cc.vv.UserManager.setIsTokenLogin(true);
+                    // console.log(_this.getGameIsDowload(gameids));
+                    // if (_this.getGameIsDowload(gameids)) {
+                    //     cc.vv.GameManager.sendEnterGameReq(Number(gameids))
+                    // } else {
+                    //     setTimeout(() => { 
+                    //         _this.TokenLoginUser(event);
+                    //     }, 1500);
+                    // }
+                    // setTimeout(() => {
+                        console.log("token登录测试点--232323--",tokenStr,gameids);
+                        cc.vv.GameManager.sendEnterGameReq(Number(gameids))
+                    // }, 1500)
+                    return ;
+                }
+
+
+
+
                 // 加载固定配置只加载在一次
                 if (!this.loginConfig) {
+                    console.log("用户ID测试点----",msgDic.playerInfo.uid);
                     this.loginConfig = await cc.vv.NetManager.asyncSend({ c: MsgId.GAME_CONFIG, uid: msgDic.playerInfo.uid });
                 }
                 cc.vv.UserManager.initPlayerData(msgDic, this.loginConfig);

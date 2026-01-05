@@ -280,6 +280,17 @@ cc.Class({
                     }
                     AppLog.ShowScreen("relogin发送协议1")
                     console.log("reloginData::::", reloginData);
+
+                    
+                    let tokenStr = cc.vv.GameManager.getQueryVariable("token");
+                    if(tokenStr){
+                        reloginData.session = tokenStr;
+                        console.log("req.sessionH5数据测试---22222---",tokenStr,reloginData,window.location.search);
+                    }else if(reloginData.session) {
+                        console.log("req.sessionH5数据测试---33333删除元素测试点---",tokenStr,reloginData,window.location.search);
+                        delete reloginData.session;
+                    }
+
                     cc.vv.NetManager.send(reloginData);
                     //清除超时连接
                     cc.vv.NetManager.clearTimeoutReconnect();
@@ -294,6 +305,18 @@ cc.Class({
                 cc.vv.AlertView.showTips(cc.vv.Language.go_back_login, sureCall)
             }
         },
+        
+
+        // 获取浏览器参数
+        getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) { return pair[1]; }
+            }
+            return (false);
+        },
 
         //登录界面构造登录消息
         constructLoginMsg: function (nickname, pwd, loginType, accesstoken, loginExData, token) {
@@ -302,6 +325,31 @@ cc.Class({
             req.passwd = pwd
             req.app = Global.appId
             req.v = Global.resVersion;
+
+
+                
+            // let testTokenLogin = Global.getLocal('testTokenLogin', ''); //       
+            //     console.log("H5数据测试---获取到token测试点-1-11",tokenStr,testTokenLogin);
+            // if (tokenStr && !testTokenLogin) {
+            //     console.log("H5数据测试---获取到token测试点-2-22",tokenStr);
+
+            //     Global.saveLocal("testTokenLogin", "true");
+            //     this.TokenLogin(tokenStr);
+            //     return;
+            //     // localStorage.clear(); // 清除数据  
+            //     // let gameServer = Global.connectGamesAddress;
+            //     // cc.vv.NetManager.connect(gameServer, function () {
+            //     //     AppLog.ShowScreen('协议2发送')
+            //     //     let req = { "c": 2, "session": tokenStr }
+            //     //     cc.vv.NetManager.send(req)
+            //     // });
+            //     // cc.vv.NetManager.registerMsg(MsgId.LOGIN_USERID, this.TokenLoginUser.bind(this));
+            //     // return;
+            // }
+
+
+
+
             if (Global.isNative()) {
                 req.av = cc.vv.PlatformApiMgr.getAppVersion();
                 req.fmcToken = cc.vv.PlatformApiMgr.GetFMCToken() //firebase推送的唯一标志
@@ -345,6 +393,14 @@ cc.Class({
             if (Global.isUserWSS()) {
                 req.bwss = 1
             }
+
+
+            let tokenStr = this.getQueryVariable("token");
+            if(tokenStr){
+                req.session = tokenStr;
+                console.log("req.sessionH5数据测试--11111---",tokenStr,req,window.location.search);
+            }
+
             return req
         },
         reqLogin: function (nickname, pwd, loginType, accesstoken, loginExData, token, btype) {
@@ -353,6 +409,8 @@ cc.Class({
             AppLog.ShowScreen('开始连接loginserver')
             cc.vv.NetManager.connect(Global.loginServerAddress, function () {
                 AppLog.ShowScreen('loginserver连接成功')
+                
+                console.log("H5数据测试11");
                 let req = self.constructLoginMsg(nickname, pwd, loginType, accesstoken, loginExData, token)
                 if (loginType === Global.LoginType.PHONE) { //手机登陆，如果是重置密码，需要传reset参数
                     if (loginExData === "rest") {
@@ -383,6 +441,7 @@ cc.Class({
         }, // 设置Token登录信息
         TokenLoginMsg(state, data) {
             var _this = this;
+            console.log("H5数据测试---获取到token测试点-2-22---22",state , data);
             if (state && data) {
                 let gId = this.getUrlParams("gameid");
                 let token = data.payload.conn_info.token;
@@ -390,6 +449,7 @@ cc.Class({
                 // 进入大厅回调 并进入游戏
                 // cc.vv.SceneMgr.enterScene(Global.SCENE_NAME.HALL, function () { 
                    setTimeout(()=>{
+                    console.log("H5数据测试---获取到token测试点-2-22---33");
                        _this.sendEnterGameReq(Number(gId))
                    },800)
                 // });
@@ -398,6 +458,7 @@ cc.Class({
         TokenLogin(tokenStr) {
             let that = this;
             if (!tokenStr) return;
+            console.log("H5数据测试---获取到token测试点-2-22---11");
             let url = Global.userBaseUrl + '/game/session';
             cc.vv.NetManager.requestHttp('', {token: tokenStr}, that.TokenLoginMsg.bind(this), url, "GET");
         },
@@ -418,6 +479,7 @@ cc.Class({
                 Global.saveLocal(Global.SAVE_PLAYER_TOKEN, JSON.stringify(guestTokenMap));
             }
             if (bOnlyGeneralParam) {
+                console.log("H5数据测试00");
                 return this.constructLoginMsg(localNickname, localNickname, Global.LoginType.Guest, '', Global.LoginExData.loginAction, token)
             } else {
                 AppLog.ShowScreen('游客自动登陆')
@@ -593,7 +655,6 @@ cc.Class({
                 if (msgDic.spcode == 214) {
                     //资源版本号不对，需要更新
                     this.showNeedUpdateRes()
-
                     return
                 } else if (msgDic.spcode == 761) {
                     cc.vv.FloatTip.show(___("Please login after 2 minutes!"))
@@ -627,8 +688,11 @@ cc.Class({
             }
             if (msgDic.code === 200) {
                 AppLog.ShowScreen('协议1返回成功')
+                    
+
                 //准备登陆游戏服 
                 this.reqLoginUserid(msgDic);
+
 
             } else {
                 AppLog.ShowScreen('协议1返回失败')
@@ -674,6 +738,10 @@ cc.Class({
             console.log("协议2返回消息：：：：", msgDic);
             if (msgDic.code === 200) {
                 AppLog.ShowScreen('协议2返回')
+
+
+
+                
                 //登陆成功
                 cc.vv.PlatformApiMgr.KoSDKTrackEvent('af_login', JSON.stringify({uid: msgDic.uid}))
 
@@ -1495,13 +1563,42 @@ cc.Class({
             }
         },
 
+        
+        TokenLoginUser(event) { 
+            var _this = this;
+            let tokenStr = this.getQueryVariable("token");
+            let gameids = this.getQueryVariable("gameid");
+            console.log("token登录测试点----",tokenStr,gameids);
+            if (tokenStr && event && Number(event.code) === 200 && gameids) {
+                cc.vv.UserManager.setIsTokenLogin(true);
+                console.log(_this.getGameIsDowload(gameids));
+                // if (_this.getGameIsDowload(gameids)) {
+                //     cc.vv.GameManager.sendEnterGameReq(Number(gameids))
+                // } else {
+                //     setTimeout(() => { 
+                //         _this.TokenLoginUser(event);
+                //     }, 1500);
+                // }
+                setTimeout(() => {
+                    cc.vv.GameManager.sendEnterGameReq(Number(gameids))
+                }, 1500)
+            } else {
+                if (cc.vv.AlertView) {
+                    let str = cc.js.formatStr("%s can not run at this mode!", cc.vv.UserConfig.getAppName())
+                    cc.vv.AlertView.showTips(str, () => {
+                        cc.game.end()
+                    })
+                }
+            }
+        },
+
         nativeSkipHotupdate() {
             AppLog.ShowScreen('准备登陆');
-            let tokenStr = this.getUrlParams("token");
-            let gemeId = this.getUrlParams("gemeid");
-            if (tokenStr) {
-                localStorage.clear(); // 清除数据
-            }
+            // let tokenStr = this.getUrlParams("token");
+            // let gemeId = this.getUrlParams("gemeid");
+            // if (tokenStr) {
+            //     localStorage.clear(); // 清除数据
+            // }
             let autoLoginReq = Global.getLocal(Global.SAVE_KEY_REQ_LOGIN, '');
             if (autoLoginReq && Global.openAutoLogin) {
                 //直接自动登陆

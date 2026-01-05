@@ -966,6 +966,8 @@ cc.Class({
                     dataCmp: "FishData",
                     dataName: "gameData",
                     gameScene: "hwfish918_loading",
+                    mainScene: "hwfish918_game_scene",
+                    orientation: "landscape",
                     selectRoom: true,
                 }
             }, //海王捕鱼918

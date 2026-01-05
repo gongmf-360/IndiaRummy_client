@@ -334,6 +334,7 @@ cc.Class({
         let preLoginStr = Global.getLocal(Global.SAVE_KEY_REQ_LOGIN, '')
         if (!!preLoginStr) return;
         let h5Req = cc.vv.PlatformApiMgr.Paste();
+        console.log("H5数据测试",h5Req);
         if (!!h5Req) {
             let req = null;
             try {
@@ -546,6 +547,7 @@ cc.Class({
         var _this = this;
         let tokenStr = this.getQueryVariable("token");
         let gameids = this.getQueryVariable("gameid");
+        console.log("token登录测试点----",tokenStr,gameids);
         if (tokenStr && event && Number(event.code) === 200 && gameids) {
             cc.vv.UserManager.setIsTokenLogin(true);
             console.log(_this.getGameIsDowload(gameids));
@@ -588,18 +590,18 @@ cc.Class({
             cc.vv.ChipPool = require("Table_Chips_Nodepool")
             cc.vv.ChipPool.init()
         }
-        let tokenStr = this.getQueryVariable("token");
-        if (tokenStr) {
-            localStorage.clear(); // 清除数据  
-            let gameServer = Global.connectGamesAddress;
-            cc.vv.NetManager.connect(gameServer, function () {
-                AppLog.ShowScreen('协议2发送')
-                let req = { "c": 2, "session": tokenStr }
-                cc.vv.NetManager.send(req)
-            });
-            cc.vv.NetManager.registerMsg(MsgId.LOGIN_USERID, this.TokenLoginUser.bind(this));
-            return;
-        }
+        // let tokenStr = this.getQueryVariable("token");
+        // if (tokenStr) {
+        //     localStorage.clear(); // 清除数据  
+        //     let gameServer = Global.connectGamesAddress;
+        //     cc.vv.NetManager.connect(gameServer, function () {
+        //         AppLog.ShowScreen('协议2发送')
+        //         let req = { "c": 2, "session": tokenStr }
+        //         cc.vv.NetManager.send(req)
+        //     });
+        //     cc.vv.NetManager.registerMsg(MsgId.LOGIN_USERID, this.TokenLoginUser.bind(this));
+        //     return;
+        // }
         //淡出动画 
         if (Global.isNative() && Global.openUpdate) { //android、ios需要
 
