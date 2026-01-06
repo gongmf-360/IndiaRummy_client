@@ -1245,7 +1245,7 @@ cc.Class({
 
         //进入游戏
         EnterGame(gameId, ssid = null, data = null) {
-
+            console.log("进入游戏:EnterGame",gameId);
             if (!cc.vv.NetManager.isNetAvailable()) {
                 cc.vv.NetManager.showNetTipType(2)
                 return
@@ -1281,10 +1281,10 @@ cc.Class({
 
             //     }
             // }
-
             let enterCall = function () {
                 cc.vv.GameManager.doEnter()
             }
+            
             this._checkSubpack(gameId, enterCall)
         },
 

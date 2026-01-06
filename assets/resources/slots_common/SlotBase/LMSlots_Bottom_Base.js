@@ -16,7 +16,7 @@ cc.Class({
         _bFreeModel:false,  //是否是免费模式
         LONGTOUCHSPINE: 1, //长按时间
         _currBottomCoin:0,
-        
+        _isSroll:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -36,6 +36,34 @@ cc.Class({
         // this._btn_spin.on(cc.Node.EventType.TOUCH_START, this.OnTouchSpinBtnBegan, this);
         // this._btn_spin.on(cc.Node.EventType.TOUCH_END, this.OnTouchSpinBtnEnded, this);
         // this._btn_spin.on(cc.Node.EventType.TOUCH_CANCEL,this.OnTouchSpinCancle,this)
+
+
+        let _this = this;
+        // // 注册键盘事件监听器
+        // this._listenerFunc = cc.EventListener.create({
+        //     event: cc.EventListener.KEYBOARD,
+        //     onKeyPressed: function (keyCode, event) {
+        //         if (keyCode === cc.macro.KEY.enter || keyCode === cc.macro.KEY.space) {
+        //             console.log("按键检测测试点--2-",_this.GetSpinBtnState());
+        //             if(_this.GetSpinBtnState()) _this.OnClickSpin();
+        //         }
+        //     }
+        // });
+        // // 添加监听器到事件管理器
+        // cc.eventManager.addListener(this._listenerFunc, 1);
+
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, function (event) {
+            console.log('按键检测测试点Key pressed:', event.keyCode); // event.keyCode 是按键的代码
+            
+            if (event.keyCode === cc.macro.KEY.enter || event.keyCode === cc.macro.KEY.space) {
+                console.log("按键检测测试点--2-",_this.GetSpinBtnState());
+                if(_this.GetSpinBtnState()) _this.OnClickSpin();
+            }
+            // 处理按键按下事件
+        }, this);
+
+
+
         
         this._btnSpinAni = cc.find('node_ani',this.node)
 
@@ -50,6 +78,20 @@ cc.Class({
         this._btn_auto.on("click",this.onClickAuto,this)
         Global.registerEvent(cc.vv.gameData._EventId.SLOT_SHOW_HEADFOOTER_MASK,this.OnEventShowMask,this);
         Global.registerEvent(EventId.NEWGUIDE_PRO_UI,this.OnEventCompleteGuide,this);
+    },
+
+    onKeyDown(event){
+        if ((event.keyCode === cc.macro.KEY.enter || event.keyCode === cc.macro.KEY.space)) {
+            if(this.GetSpinBtnState()) this.OnClickSpin();
+        }
+    },
+
+    onEnable(){
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN,this.onKeyDown , this);
+    },
+
+    onDisable(){
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN,this.onKeyDown , this);
     },
 
     start () {
@@ -481,6 +523,7 @@ cc.Class({
 
     //发送旋转请求，并转轴转起来
     SendSpinReq:function(){
+        this._isSroll = true;
         this.ShowBtnsByState("moveing_1")
         let betIdx = cc.vv.gameData.GetBetIdx()
         let autoVal = null
