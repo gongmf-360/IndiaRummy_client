@@ -2,14 +2,14 @@
 ** Manager the global variable
 */
 
-let ServerList = {
-    1: "192.168.1.57",            // slot
-    2: "192.168.1.57",            // machen
-    3: "192.168.1.57",            // liyi
-    4: "192.168.1.57",            // release
-    5: "192.168.1.57",            // test
-    6: "192.168.1.57",            // haoran
-};
+// let ServerList = {
+//     1: "192.168.1.57",            // slot
+//     2: "192.168.1.57",            // machen
+//     3: "192.168.1.57",            // liyi
+//     4: "192.168.1.57",            // release
+//     5: "192.168.1.57",            // test
+//     6: "192.168.1.57",            // haoran
+// };
 
 
 // let ServerList = {
@@ -21,14 +21,14 @@ let ServerList = {
 //     6: "192.168.1.57",            // haoran
 // };
 
-// let ServerList = {
-//     1: "xyule.cyou",            // slot
-//     2: "xyule.cyou",            // machen
-//     3: "xyule.cyou",            // liyi
-//     4: "xyule.cyou",            // release
-//     5: "xyule.cyou",            // test
-//     6: "xyule.cyou",            // haoran
-// };
+let ServerList = {
+    1: "xyule.cyou",            // slot
+    2: "xyule.cyou",            // machen
+    3: "xyule.cyou",            // liyi
+    4: "xyule.cyou",            // release
+    5: "xyule.cyou",            // test
+    6: "xyule.cyou",            // haoran
+};
 // let ServerList = {
 //     1: "192.168.1.57",            // slot
 //     2: "192.168.1.57",            // machen
@@ -50,10 +50,12 @@ let ServerList = {
 var GlobalVar = cc.Class({
     extends: cc.Component,
     statics: {
-        // loginServerAddress: ServerList[CC_BUILD ? 4 : 2] + ':80/login',
-        // connectGamesAddress: ServerList[CC_BUILD ? 4 : 2] + ":80/game",
-        loginServerAddress: ServerList[CC_BUILD ? 4 : 2] + ':9951/ws',
-        connectGamesAddress: ServerList[CC_BUILD ? 4 : 2] + ":9959/ws",
+        // loginServerAddress: ServerList[CC_BUILD ? 4 : 2] + ':9951/ws',
+        // connectGamesAddress: ServerList[CC_BUILD ? 4 : 2] + ":9959/ws",
+        loginServerAddress: ServerList[CC_BUILD ? 4 : 2] + '/login',
+        connectGamesAddress: ServerList[CC_BUILD ? 4 : 2] + "/game",
+        // loginServerAddress: "xyule.cyou" + '/login',
+        // connectGamesAddress: "xyule.cyou" + "/game",
         // wsHead: CC_BUILD ? "wss://" : "ws://", // 协议头
         wsHead: CC_BUILD ? "wss://" : "ws://", // 协议头
         localVersion: true,

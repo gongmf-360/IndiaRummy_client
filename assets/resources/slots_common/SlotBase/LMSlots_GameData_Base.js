@@ -493,6 +493,9 @@ cc.Class({
     },
 
     OnRcvNetSpine:function(msg){
+        console.log("旋转消息：",msg);
+        
+
         this._sendInter = null
         this._bReconnect = null
         if(msg.code == 200){
