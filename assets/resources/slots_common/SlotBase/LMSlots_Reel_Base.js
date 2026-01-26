@@ -192,6 +192,7 @@ cc.Class({
 
     //旋转
     StartMove:function(){
+        // console.log("设置结果测试点--清空-",this._result);
         this._result = null
         this._stopRightNow = null
         this._bNotifyReadyStop = null
@@ -247,6 +248,7 @@ cc.Class({
     updataSymbol(){
         let symbol = this._symbols.shift()
         let symbolData = null
+        // console.log("设置结果测试点--111-",this._result);
         if(this._stopTime <= 0 && this._bStoping && this._result && !this._bResizing) {
             if(this._result instanceof Array){
                     //开始设置结果
@@ -257,7 +259,7 @@ cc.Class({
                     }
             }
             else{
-                cc.error('LMSlots_Reel_Base.updataSymbol设置的结果不是数组!')
+                cc.error('LMSlots_Reel_Base.updataSymbol设置的结果不是数组!',symbol,this._symbols,this._stopTime , this._bStoping , this._result , this._bResizing)
             }
             
         }
@@ -279,6 +281,7 @@ cc.Class({
     //立即停止
     StopMoveRightNow:function(){
         this._stopRightNow = true
+        // console.log("设置结果测试点--222-",this._result,this._originResult);
 
         if(this._bMoving && this._originResult) {
             this._result = Global.copy(this._originResult) 
@@ -293,6 +296,7 @@ cc.Class({
     //增加停止间隔时间
     //scatter加速的时候需要
     AddDelayTime:function(nVal){
+        // console.log("设置结果测试点--333-",this._result,this._originResult);
         if(this._bMoving){ //只要还没停止就可以加速
             this._stopTime += nVal
             //设置了加速后，不管前面是否设置了结果，到停止的时候，重新来设置一轮
@@ -398,6 +402,7 @@ cc.Class({
     //设置结果
     //[{sid:*,data:*}...]
     SetResult:function(val){
+        // console.log("设置结果测试点---",this._result,val);
         this._originResult = Global.copy(val)
         this._result = val
     },

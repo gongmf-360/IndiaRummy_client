@@ -354,6 +354,7 @@ cc.Class({
     },
 
     loadLoadingTip() {
+        console.log("提示测试点---");
         let func = (err, prefab) => {
             if (err == null) {
                 let node = cc.instantiate(prefab);

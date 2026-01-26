@@ -678,7 +678,18 @@ cc.Class({
                 } else if (msgDic.spcode === 333) {
                     cc.vv.AlertView.showTips(___("wrong password!"))
                 } else {
-                    cc.vv.AlertView.showTips(cc.js.formatStr("Login fail!(%s)", msgDic.spcode));
+                    console.log("登录失败测试点-----ee");
+                    let tokenStr = this.getQueryVariable("token");
+                    //设置token的不能显示登录页面
+                    if(tokenStr){
+                        cc.vv.AlertView.showTips(cc.js.formatStr("token error!(%s)", msgDic.spcode),()=>{
+                            this.onRcvMsgLogin(msgDic)
+                            return false;
+                        });
+                        this.node.destroy();
+                    }else{
+                        cc.vv.AlertView.showTips(cc.js.formatStr("Login fail!(%s)", msgDic.spcode));
+                    }
                 }
                 AppLog.ShowScreen('协议1返回失败');
                 let errcode = msgDic.spcode;

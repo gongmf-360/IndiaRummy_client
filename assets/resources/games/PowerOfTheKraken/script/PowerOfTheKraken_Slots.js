@@ -123,7 +123,7 @@ cc.Class({
 
 
     SetSlotsResult:function(cards){
-
+        // console.log("设置结果测试点---子游戏测试",cards);
         //把结果按卷轴结果整理
         let acRow = cards.length / this._col
         let reelResults = []

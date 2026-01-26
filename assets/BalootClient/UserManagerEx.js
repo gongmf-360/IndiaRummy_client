@@ -648,6 +648,7 @@ cc.Class({
         },
         // 走马灯
         GLOBAL_SPEAKER_NOTIFY(msg) {
+            return ;
             if (msg.code != 200) return;
             // 进行跑马灯播报
             cc.vv.BroadcastManager.addBroadcast({

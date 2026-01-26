@@ -45,7 +45,10 @@ cc.Class({
             btn.getComponent(cc.Button).interactable = true;
             btn.off("click");
             let self = this;
-            btn.on("click", () => {
+            let clickFunc = () => {
+                console.log("当前点击测试-playTriBonus-");
+
+                cc.Tween.stopAllByTarget(btn);
                 btn.getComponent(cc.Button).interactable = false;
                 Global.SlotsSoundMgr.playEffect("click");
 
@@ -55,7 +58,14 @@ cc.Class({
                     self._respin_start.active = false;
                     success();
                 })
-            });
+            }
+            console.log("当前点击测试-playTriBonus1111111-");
+            btn.on("click", clickFunc);
+            // cc.tween(btn).delay(10).call(()=>{
+            //     console.log("当前点击测试-playTriBonus-");
+            //     clickFunc();
+            // }).start();
+
 
             await cc.vv.gameData.awaitTime(2);
             btn.getComponent(cc.Button).interactable = false;
@@ -87,7 +97,8 @@ cc.Class({
             btn.getComponent(cc.Button).interactable = true;
             btn.off("click");
             let self = this;
-            btn.on("click", () => {
+            let clickFunc = () => {
+                cc.Tween.stopAllByTarget(btn);
                 btn.getComponent(cc.Button).interactable = false;
                 Global.SlotsSoundMgr.playEffect("click");
 
@@ -97,7 +108,12 @@ cc.Class({
                     self._pick_start.active = false;
                     success();
                 })
-            });
+            }
+            btn.on("click", clickFunc);
+            // cc.tween(btn).delay(10).call(()=>{
+            //     console.log("当前点击测试-playTriPick-");
+            //     clickFunc();
+            // }).start();
 
             await cc.vv.gameData.awaitTime(2);
             btn.getComponent(cc.Button).interactable = false;
@@ -139,7 +155,8 @@ cc.Class({
             btn.getComponent(cc.Button).interactable = true;
             btn.off("click");
             let self = this;
-            btn.on("click", () => {
+            let clickFunc = () => {
+                cc.Tween.stopAllByTarget(btn);
                 btn.getComponent(cc.Button).interactable = false;
                 Global.SlotsSoundMgr.playEffect("click");
 
@@ -151,7 +168,12 @@ cc.Class({
                     self._respin_win.active = false;
                     success();
                 })
-            });
+            }
+            btn.on("click", clickFunc);
+            cc.tween(btn).delay(10).call(()=>{
+                console.log("当前点击测试-endBonusGame-");
+                clickFunc();
+            }).start();
         });
     },
 
@@ -230,7 +252,8 @@ cc.Class({
             btn.getComponent(cc.Button).interactable = true;
             btn.off("click");
             let self = this;
-            btn.on("click", () => {
+            let clickFunc = () => {
+                cc.Tween.stopAllByTarget(btn);
                 btn.getComponent(cc.Button).interactable = false;
                 Global.SlotsSoundMgr.playEffect("click");
 
@@ -241,7 +264,12 @@ cc.Class({
                     self._pick_start.active = false;
                     success();
                 })
-            });
+            }
+            btn.on("click", clickFunc);
+            cc.tween(btn).delay(10).call(()=>{
+                console.log("当前点击测试-playJpWin-");
+                clickFunc();
+            }).start();
         })
     },
 
@@ -282,10 +310,9 @@ cc.Class({
             btn.active = isFirst;
             await cc.vv.gameData.awaitTime(1);
             let self = this;
-            if(isFirst){
-                btn.getComponent(cc.Button).interactable = true;
-                btn.off("click");
-                btn.on("click", () => {
+            let clickFunc = () => {
+                    cc.Tween.stopAllByTarget(btn);
+
                     btn.getComponent(cc.Button).interactable = false;
                     Global.SlotsSoundMgr.playEffect("click");
 
@@ -297,7 +324,15 @@ cc.Class({
                         self._free_start.active = false;
                         success();
                     })
-                });
+                }
+            if(isFirst){
+                btn.getComponent(cc.Button).interactable = true;
+                btn.off("click");
+                btn.on("click", clickFunc);
+                cc.tween(btn).delay(10).call(()=>{
+                    console.log("当前点击测试-免费游戏开始-");
+                    clickFunc();
+                }).start();
             } else {
                 await cc.vv.gameData.awaitTime(2);
                 cc.tween(popNode).to(0.5, {scale:0},{easing:"backIn"}).start();
@@ -309,6 +344,7 @@ cc.Class({
                     success();
                 })
             }
+
         });
     },
 
@@ -345,7 +381,9 @@ cc.Class({
             btn.getComponent(cc.Button).interactable = true;
             btn.off("click");
             let self = this;
-            btn.on("click", () => {
+            let clickFunc = () => {
+                cc.Tween.stopAllByTarget(btn);
+
                 btn.getComponent(cc.Button).interactable = false;
                 Global.SlotsSoundMgr.playEffect("click");
                 // Global.SlotsSoundMgr.playEffect("transition_free");
@@ -358,7 +396,13 @@ cc.Class({
                     self._free_win.active = false;
                     success();
                 })
-            });
+            }
+            btn.on("click", clickFunc);
+            cc.tween(btn).delay(10).call(()=>{
+                console.log("当前点击测试-免费游戏结束-");
+                clickFunc();
+
+            }).start();
         });
     },
 

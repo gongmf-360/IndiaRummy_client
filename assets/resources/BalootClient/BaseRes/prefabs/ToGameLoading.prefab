@@ -418,7 +418,7 @@
       "__id__": 10
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 12
@@ -427,7 +427,7 @@
     "_prefab": {
       "__id__": 13
     },
-    "_opacity": 255,
+    "_opacity": 0,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -437,8 +437,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 96.2,
-      "height": 72.15
+      "width": 106.65,
+      "height": 84.45
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",

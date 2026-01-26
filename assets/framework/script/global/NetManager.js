@@ -186,8 +186,13 @@ cc.Class({
 
         //处理消息
         handleMsg: function (msgDic) {
-            console.log("消息监听：：：：",msgDic);
+            console.log("消息监听：：：：",msgDic,JSON.stringify(msgDic));
+
             if (!msgDic) return;
+            // if(msgDic.c==44){
+            //     msgDic = JSON.decode({"c":44,"code":200,"betcoin":1,"freeResult":{"freeInfo":{"scatter":2,"addMult":1,"freeCnt":6,"scatterIdx":[1,7,9]},"triFreeCnt":1},"freeWinCoin":0.2,"freeCnt":6,"c_idx":137,"lastBetCoin":19.51,"boxInfo":{"status":3,"cnt":40,"wildIdxs":[]},"bonusItems":[],"nextBetLine":{"spcode":500},"wincoin":0.2,"coin":19.51,"pooljp":0,"resultCards":[2,5,15,8,15,15,2,11,2,14,13,9,13,9,13,9,15,7,15,8],"spcode":200,"spLuXian":0,"superFree":{"state":0,"stickyItems":[],"count":0,"totalCount":8,"stickyIdxs":[],"startPrize":0},"zjLuXian":[{"mult":1,"indexs":[6,17,3,19,5],"card":15}],"allFreeCnt":6,"spEffect":{"wincoin":0.2,"kind":0},"subGameInfo":{"subGamid":-1,"isMustJoin":-1},"gameid":541,"addMult":1,"bonusIdxs":[],"issue":"KK2601149005010029"});
+            // }
+            
             if (this.cacheIdxList.indexOf(msgDic.c_idx) < 0) this.printNetLog("Receive", msgDic);
             var cmd = msgDic.c
             if (cmd) {

@@ -150,6 +150,7 @@ cc.Class({
 
     //普通免费游戏点击开始
     onStartFreeGameEvent(){
+        console.log("免费游戏点击开始测试点---");
         Global.playHSEffect('press');
         let startnode = cc.find('startspine',this._freeGameRollUI);
         startnode.stopAllActions()
@@ -253,12 +254,15 @@ cc.Class({
 
     //接收51消息返回
     onRcvSubGameAction:function(msg){
+        console.log("发送51消息测试点---接收51消息返回-",msg);
         if(msg.code == 200){
             if(msg.data.rtype == 5)
                 return;
             this._subGameData = msg.data;
+            // this._subGameData.rtype = 4;
             if(this._subGameData.rtype == 4){
                 this._freeGameType = undefined;
+                console.log("发送51消息测试点---接收51消息返回222-",this._rewardGameRollUI,this._rewardGameRollUI.getComponent('G_Cleopatra_Roll'),this._subGameData);
                 this._rewardGameRollUI.getComponent('G_Cleopatra_Roll').startMove(this._subGameData);
             }else{
                 this._freeGameType = msg.data.type;
@@ -272,6 +276,7 @@ cc.Class({
 
     //发送进入小游戏 51消息头
     sendEnterFreeeGame(type){
+        console.log("发送51消息测试点--发送进入小游戏--",type);
         let req = {c: MsgId.SLOT_SUBGAME_DATA};
         req.data = {}
         req.data.rtype = type

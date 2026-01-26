@@ -11,6 +11,7 @@ cc.Class({
     },
 
     onLoad () {
+        console.log("进入游戏测试点-1-");
          //父节点的宽度
         this._initPosX = this.items[this.items.length-1].position.x+196;
         this._parentWidth = cc.find('rollView/view/content',this.node).width;
@@ -18,6 +19,7 @@ cc.Class({
 
     //开始移动 这里类型不统一(移动前增加动画播放)
     startMove(gamedata){
+        console.log("进入游戏测试点-2-");
         let spineani = cc.find('choiceFrame/framespine',this.node);
         cc.vv.gameData.playSpine(spineani,'animation',false,()=>{
             spineani.active = false;
@@ -35,6 +37,7 @@ cc.Class({
 
     //复位数据
     resetData(){
+        console.log("进入游戏测试点-3-");
         this._stopItemName = undefined;
         this._moveSpeed = 28;
         this._curMoveTimes = 0;
@@ -44,6 +47,7 @@ cc.Class({
 
     //移动结束
     moveEnd(){
+        console.log("进入游戏测试点-4-");
         AppLog.log('###停止移动');
         this.resetData();
         //开始免费游戏
@@ -60,6 +64,7 @@ cc.Class({
 
     //初始化刷新money
     initUpdateCoin(){
+        console.log("进入游戏测试点-5-");
         let wheel = cc.vv.gameData.getWheel();
         let index = 0;
         for(let key in wheel){
@@ -75,6 +80,7 @@ cc.Class({
 
     //播放jackpot特效
     playJackpot(){
+        console.log("进入游戏测试点-6-");
         if(this._subGameData.result){
             let type = this._subGameData.result.type;
             let jacknode = undefined;
